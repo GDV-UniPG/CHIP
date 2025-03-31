@@ -1,0 +1,67 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <div>    
+          <a href="https://rasta.unicampania.it/" target="_blank"> <img style="height: 55px" src="assets/logo-rasta.png" alt="LogoRASTA"></a>     
+         
+          <a [routerLink]="['']"><img src="assets/logo-chip.png" alt="LogoCHIP"></a>
+        </div>
+       
+        <mat-list class="toolbar-list">
+            <mat-list-item *ngFor="let action of actions" class="list-item">
+              <button class="animated-button" mat-button [routerLink]="action.url" >{{action.action}}
+                <span class="underline"></span>
+              </button>
+             
+            </mat-list-item>
+          </mat-list>
+          <div class="toolbar-icons">           
+            <div class="header-login"   *ngIf="!userService.isTouristLoggedIn() && !userService.isAdminLoggedIn()" >
+            <button  mat-icon-button  matTooltip="Login" routerLink="/login">
+              <mat-icon iconPositionEnd>person</mat-icon>
+            </button>
+            <button  mat-icon-button matTooltip="Signup" routerLink="/signup">
+              <mat-icon iconPositionEnd>person_add</mat-icon> 
+            </button>
+            </div>
+            <div class="header-login"   *ngIf="userService.isTouristLoggedIn()||userService.isAdminLoggedIn()">
+            <button mat-icon-button  matTooltip="Logout" (click)="logout()" routerLink="">
+              <mat-icon iconPositionEnd>exit_to_app</mat-icon>
+            </button>
+          </div>
+          <button mat-button matTooltip="{{'toolbar_tooltip.language_button' | translate}}" [matMenuTriggerFor]="languageMenu">
+            <mat-icon>language</mat-icon>
+            {{ languageService.getSiteLanguage() }}
+          </button>
+          <mat-menu #languageMenu="matMenu">
+            <mat-radio-group>
+              <mat-radio-button color="primary" *ngFor="let language of languageList" [value]="language.code" [checked]="languageService.getSiteLanguage() == language.label" (click)="changeSiteLanguage(language.code)">
+                {{ language.label }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </mat-menu>
+          
+          <div class="sidenav-button">
+            <button  mat-icon-button (click)="toggleSidenav()">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+         
+          </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+          <mat-sidenav-container>
+            <mat-sidenav position="end" [(opened)]="sidenav" mode="push">
+                <mat-list>
+                    <mat-list-item *ngFor="let action of actions">
+                      <a [routerLink]=action.url (click)="toggleSidenav()">
+                        <mat-icon class="sidenav-icon">{{action.icon}}</mat-icon >
+                        <mat-label>{{action.action}}</mat-label>  
+                        </a>
+                    </mat-list-item>
+                </mat-list>
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <router-outlet></router-outlet>
+            </mat-sidenav-content>
+            </mat-sidenav-container>

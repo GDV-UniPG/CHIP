@@ -1,0 +1,183 @@
+@import '~leaflet/dist/leaflet.css';
+@import '~leaflet-search/dist/leaflet-search.src.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.leaflet-marker-icon:hover{
+    filter: brightness(1.5); 
+}
+.leaflet-control-search {
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+html, body { height: 100%; }
+body { 
+  margin: 0;  
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+   }
+
+
+
+  mat-toolbar-row mat-list mat-list-item .mat-list-item-content {
+    padding: 0 0 0 20px !important;
+   
+  }
+/*.mat-dialog-container {
+  max-width: 400px!important;
+} */
+
+  @media screen and (max-width:400px){
+    .mat-dialog-container {
+        padding: 20px 10px 20px 10px!important;
+    } 
+    .cdk-overlay-pane{
+      max-width: 90vw!important;
+    }
+}
+@media screen and (max-width:500px){
+  .mat-vertical-content-container {
+    margin-left: 0px!important;
+ }
+ .mat-stepper-vertical-line::before {
+  border-left-style: none!important;
+}
+}
+
+
+mat-dialog-content{
+  padding:0px!important;
+  margin:0px!important;
+}
+
+.mat-vertical-content {
+  padding: 0 10px 10px 10px!important;
+}
+.mat-step-header{  
+  min-width: max-content;
+}
+.mat-horizontal-stepper-header-container{
+  margin-top: 15px;
+  overflow: auto;
+}
+
+/*.leaflet-routing-alt{
+  display: none;
+}*/
+.leaflet-routing-container{
+  display: none;
+}
+
+.mat-horizontal-stepper-header {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    padding: 0 24px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+mat-horizontal-stepper div mat-step-header{
+  margin:0 10px;
+}
+mat-button-toggle-group {
+  border-radius: 15px!important;
+}
+mat-expansion-panel-header .mat-content{
+  flex-direction: column!important;
+}
+
+.bullet-point{
+    font-size: 20px!important;
+    height: unset;
+}
+
+.custom-div-icon {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  width: 31px;  
+  height: 41px;
+}
+
+.marker-content {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 80%;
+  background-image: url('./assets/map-icons/marker-number.png'); 
+  background-size: cover;
+  color: black; 
+  font-size: 12px; 
+}
+
+.selected-marker-content {
+  background-image: url('./assets/map-icons/marker-number-red.png');
+  background-size: cover;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 100%;
+  color: black; 
+  font-size: 12px; 
+}
+
+.mat-slider-thumb-label{
+  padding: 2px!important;
+}
+
+#visualizationSlider .mat-slider-horizontal {
+  height: 35px!important;
+}
+
+mat-pseudo-checkbox{
+  margin-right: 5px!important;
+}
+
+mat-list-option div{    
+  align-items: flex-start!important;
+  display: flex!important;
+  flex-direction: row!important;
+}
+
+.custom-checkbox .mat-checkbox-label {
+  white-space: break-spaces!important;    
+}
+.visualizationEP .mat-expansion-panel-body{
+  padding-right: 0;
+}
+
+.visualizationEP .mat-expansion-panel-header .mat-expanded{
+  height: 40px!important;
+}
+.visualizationEP mat-expansion-panel-header .mat-content{
+  flex-direction: row!important;
+}
+
+.optionDiv .mat-radio-label-content{//used in ranking
+  padding-left:0!important;
+}
+ svg g {
+  fill: currentColor!important; 
+}
+.axis-label, .y-axis{
+  fill: rgb(255 255 255 / 0%)!important
+}
+
+mat-vertical-stepper mat-card{
+  background-color: rgb(255,255,255,0)!important
+}
+mat-sidenav-container{
+  background-image: url("./assets/background-Umbria.png")!important;
+  background-attachment: fixed;
+}
+.stepperHome .mat-horizontal-content-container{
+  padding: 0!important;
+}
+.parallel-path{
+  stroke:url(#gradient)!important
+}
+
+.tabItineraryDetails .mat-tab-body.mat-tab-body-active {
+  overflow-y: hidden;
+}

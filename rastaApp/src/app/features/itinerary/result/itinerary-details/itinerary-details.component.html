@@ -1,0 +1,172 @@
+<div id="printDiv">
+  <button mat-mini-fab (click)="printItinerary()" color="primary">
+    <mat-icon matTooltip="{{ 'itinerary.result.print_itinerary' | translate }}">print</mat-icon>
+  </button>
+</div>
+<mat-tab-group mat-stretch-tabs="true">
+  <mat-tab *ngFor="let dailyItinerary of steps; let j=index"
+    label="{{'itinerary.result.number_day_tab'|translate}} {{j+1}} ">
+    <div class="dailyItineraryDiv">
+      <mat-list>
+        <mat-list-item *ngIf="dailyItinerary.pois!==undefined">
+          <mat-icon class="bullet-point" matListIcon>keyboard_arrow_right</mat-icon>
+          <mat-label>
+            <b>{{'itinerary.saved.daily_total_duration'|translate}}:</b>
+            {{dailyItinerary.pois[dailyItinerary.pois.length - 1].t_end | minutesToHours}}
+          </mat-label>
+          <br>
+        </mat-list-item>
+        <mat-list-item *ngIf="dailyItinerary.pois!==undefined">
+          <mat-icon class="bullet-point" matListIcon>keyboard_arrow_right</mat-icon>
+          <mat-label><b>{{'itinerary.saved.total_poi'|translate}}:</b> {{dailyItinerary.pois.length -2}}
+          </mat-label><br></mat-list-item>
+      </mat-list>
+      <mat-label>{{'itinerary.result.step_tab'|translate}}</mat-label>
+      <div class="stepper-container">
+        <button class="navigateButton" mat-icon-button (click)="stepperPoi.selectedIndex =stepperPoi.selectedIndex- 1;"
+          [disabled]="stepperPoi.selectedIndex === 0">
+          <mat-icon>navigate_before</mat-icon> </button>
+        <div class="hstepper-cont" #stepperContainer>
+          <mat-horizontal-stepper #stepperPoi (selectionChange)="stepChanged($event, j)">
+            <ng-template let-i="index" matStepperIcon="number"> {{i}} </ng-template>
+            <ng-container *ngFor="let poi of dailyItinerary.pois; let i = index">
+
+              <mat-step [completed]="false">
+                <ng-template matStepLabel>
+                  {{ poi.name }}
+                </ng-template>
+
+              </mat-step>
+            </ng-container>
+          </mat-horizontal-stepper>
+        </div>
+        <button class="navigateButton" mat-icon-button (click)="stepperPoi.selectedIndex=stepperPoi.selectedIndex + 1"
+          [disabled]="stepperPoi.selectedIndex === stepperPoi.steps.length - 1">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+      <mat-tab-group [selectedIndex]="dailyItinerary.showMap ? 1 : 0"
+        (selectedTabChange)="changeMapDescriptionTab($event, j)" class="tabItineraryDetails">
+        <mat-tab label="{{'itinerary.result.info'|translate}}">
+          <div class="content" *ngIf="dailyItinerary.selectedPoi!=undefined && !dailyItinerary.showMap">
+            <div class="content_title">
+              <h2>{{ dailyItinerary.selectedPoi.name }}</h2>
+              <button style="margin-top:25px" *ngIf="dailyItinerary.selectedPoi.url_primary !== null " mat-icon-button
+                (click)="goLink(dailyItinerary.selectedPoi.url_primary)">
+                <mat-icon iconPositionEnd matTooltip="{{ 'ranking.open_page_tooltip' | translate }}">launch</mat-icon>
+              </button>
+            </div>
+            <mat-divider></mat-divider>
+            <div id="container">
+              <div *ngIf="dailyItinerary.selectedPoi.description!=undefined" class="chart">
+                <div   [innerHTML]="sanitizeHtml(dailyItinerary.selectedPoi.description)"></div>
+              </div>
+
+              <div #imageDiv id="imageDiv">
+                <img *ngIf="dailyItinerary.selectedPoi.image_url"
+                  [src]="'https://mozart.diei.unipg.it/rasta/images/images/' + dailyItinerary.selectedPoi.id + '.jpg'"
+                  alt="Image" style="width: 100%; height: auto;">
+                  <mat-list style="padding:0">
+
+                    <mat-list-item>
+                      <mat-icon class="bullet-point" matListIcon>keyboard_arrow_right</mat-icon>
+                      <mat-label><b>{{'itinerary.result.init_visit_time'|translate}}: </b>{{
+                        dailyItinerary.selectedPoi.t_end
+                        -
+                        dailyItinerary.selectedPoi.t_visit_min | minutesToHours}}</mat-label>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <mat-icon class="bullet-point" matListIcon>keyboard_arrow_right</mat-icon>
+                      <mat-label><b>{{'itinerary.result.end_visit_time'|translate}}: </b>{{
+                        dailyItinerary.selectedPoi.t_end
+                        | minutesToHours}}</mat-label>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <mat-icon class="bullet-point" matListIcon>keyboard_arrow_right</mat-icon>
+                      <mat-label><b>{{'itinerary.result.visit_duration_poi'|translate}}: </b>
+                        {{ dailyItinerary.selectedPoi.t_visit_min | minutesToHours}}
+                      </mat-label>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="dailyItinerary.selectedPoi.wiki_url">
+                      <mat-icon class="bullet-point" matListIcon>keyboard_arrow_right</mat-icon>
+                      <mat-label><b>Wiki URL: &nbsp;&nbsp;</b></mat-label><mat-label class="link">{{
+                        dailyItinerary.selectedPoi.wiki_url
+                        }}</mat-label>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="dailyItinerary.selectedPoi.external_links">
+                      <mat-icon class="bullet-point" matListIcon>keyboard_arrow_right</mat-icon>
+                      <mat-label><b>{{'itinerary.saved.ext_link'|translate}}: </b></mat-label>
+                    </mat-list-item>
+                    <mat-list-item class="links" *ngFor="let link of dailyItinerary.selectedPoi.external_links">
+                      <mat-label>- </mat-label> <mat-label class="link" (click)="goLink(link)"> {{link}}</mat-label>
+                    </mat-list-item>
+                  </mat-list>
+                <ngx-charts-bar-horizontal *ngIf="dailyItinerary.selectedPoi.toi_scores!=null" [view]="view"
+                [scheme]="dailyItinerary.selectedPoi.colorScheme" [results]="dailyItinerary.selectedPoi.chartData"
+                [legend]="false" [xAxis]="true" [yAxis]="true" [xScaleMin]="0" [xScaleMax]="10">
+              </ngx-charts-bar-horizontal>
+
+                
+
+                
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-tab>
+        <mat-tab label="{{'itinerary.result.map_tab'|translate}}">
+          <div *ngIf="dailyItinerary.pois!=undefined && dailyItinerary.showMap">
+            <app-itinerary-map [index]="itineraryIndex" [pois]="dailyItinerary.pois"
+              [selectedPoi]="dailyItinerary.selectedPoi" [transportMean]="transportMean"
+              (poiSelected)="onPoiSelected($event, j)"></app-itinerary-map>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>
+
+
+<div id="printableContent" style="display: none; ">
+  <h1 id="print-title" style="
+    text-align: center;">CHIP Itinerary</h1>
+  <div id="header">
+    <p><strong>{{'itinerary.saved.transport_mean'|translate}}:</strong> {{ transportMean | transportMean }}</p>
+    <p><strong>{{'itinerary.saved.number_day'|translate}}:</strong> {{ steps.length }}</p>
+  </div>
+  <div *ngFor="let day of steps; let j = index">
+    <div *ngIf="day.pois !== undefined">
+      <h2>{{ 'itinerary.result.number_day_tab' | translate }} {{ j + 1 }}</h2>
+      <p><strong>{{ 'itinerary.saved.daily_total_duration' | translate }}:</strong>
+        {{ day.pois[day.pois.length - 1].t_end | minutesToHours }}</p>
+      <p><strong>{{ 'itinerary.saved.total_poi' | translate }}:</strong> {{ day.pois.length - 2 }}</p>
+      <ol class="stepper">
+        <li *ngFor="let poi of day.pois">
+          <div class="step-header">
+            <strong>{{ poi.name }}</strong>
+          </div>
+          <div class="poi-content">
+            <ul class="poi-details">
+              <li>
+                - &nbsp;&nbsp; <strong>{{ 'itinerary.result.init_visit_time' | translate }}:</strong>
+                {{ poi.t_end - poi.t_visit_min | minutesToHours }}
+              </li>
+              <li>
+                - &nbsp;&nbsp; <strong>{{ 'itinerary.result.end_visit_time' | translate }}:</strong>
+                {{ poi.t_end | minutesToHours }}
+              </li>
+              <li>
+                - &nbsp;&nbsp; <strong>{{ 'itinerary.result.visit_duration_poi' | translate }}:</strong>
+                {{ poi.t_visit_min || 0 | minutesToHours }}
+              </li>
+            </ul>
+            <div class="poi-image">
+              <img *ngIf="poi.image_url" [src]="poi.image_url" alt="{{ poi.name }}" />
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

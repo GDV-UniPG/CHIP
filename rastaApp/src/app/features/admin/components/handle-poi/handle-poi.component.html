@@ -1,0 +1,137 @@
+<div id="contentDiv"><mat-card>
+    <mat-card-content>
+      <div class="btn-add-poi">
+        
+        <div style="display: flex;   flex-direction: column;  align-items: flex-start;">
+        <mat-form-field style="margin-left: 24px;">
+          <mat-label> {{'admin.handle_poi.search_text'|translate}}</mat-label>
+          <input style="
+            padding:0 0  5px 5px;" matInput [formControl]="poiSearchControl" (keyup)="applyFilter($event)" #input>
+          <mat-icon matPrefix> search</mat-icon>
+        </mat-form-field>
+        <div id="checkboxDiv">
+        <mat-checkbox style="margin-left: 24px;" color="primary" (change)="toggleFilters('image', $event.checked)">
+          {{'admin.handle_poi.image'|translate}} 
+        </mat-checkbox>
+        <mat-checkbox style="margin-left: 24px;" color="primary" (change)="toggleFilters('primary_url', $event.checked)">
+          {{'admin.handle_poi.primary_url_filter'|translate}} 
+        </mat-checkbox>
+        <mat-checkbox style="margin-left: 24px;" color="primary" (change)="toggleFilters('has_been_changed', $event.checked)">
+          {{'admin.handle_poi.has_been_changed'|translate}} 
+        </mat-checkbox>
+        <mat-checkbox style="margin-left: 24px;" color="primary" (change)="toggleFilters('has_score_changed', $event.checked)">
+          {{'admin.handle_poi.has_score_changed'|translate}} 
+        </mat-checkbox>
+      </div>
+      </div>
+      <div style="display: flex;flex-direction: column;">
+        <button mat-icon-button matTooltip="{{'admin.tooltip.add_new'|translate}} POI"
+        (click)="addPOI()"><mat-icon>add</mat-icon></button>
+
+        <button mat-icon-button >
+          <mat-icon matTooltip="{{'admin.tooltip.umbriatourism'|translate}}">update</mat-icon>
+        </button>
+      </div>
+       
+      </div>
+      <div class="table-content">
+
+        <mat-table [dataSource]="listOfPOI">
+
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()!=='it'" matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.name'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()=='it'" matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.name'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
+          </ng-container>
+
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()!=='it'" matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.description'|translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+
+          </ng-container>
+
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()=='it'" matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.description'|translate}}</mat-header-cell>
+           
+            <mat-cell *matCellDef="let element">{{element.descrizione}}</mat-cell> 
+          </ng-container>
+
+          <ng-container matColumnDef="url_primary">
+            <mat-header-cell *matHeaderCellDef>{{'admin.handle_poi.primary_url'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element"><a target="_blank"
+                [href]=element.url_primary>{{element.url_primary}}</a></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="wiki_url-external_links">
+            <mat-header-cell *matHeaderCellDef>{{'admin.handle_poi.wiki_url'|translate}} /
+              {{'admin.handle_poi.ext_links'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element"><a target="_blank" [href]=element.wiki_url>{{element.wiki_url}}</a>
+              <mat-list class="extLinkList"><mat-list-item *ngFor="let link of element.external_links; let i=index"><a
+                    target="_blank" [href]=link.url>Link
+                    {{i}}</a></mat-list-item></mat-list>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="latitude">
+            <mat-header-cell *matHeaderCellDef>{{'admin.handle_poi.latitude'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element"><mat-label>{{element.latitude}}</mat-label></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="longitude">
+            <mat-header-cell *matHeaderCellDef>{{'admin.handle_poi.longitude'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.longitude}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="visit_min_durations">
+            <mat-header-cell *matHeaderCellDef>{{'admin.handle_poi.vis_dur'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element"><mat-list><mat-list-item
+                  *ngFor="let duration of element.visit_min_durations; let i=index">
+                  {{duration.duration_min}}</mat-list-item></mat-list></mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="scores">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.scores'|translate}} </mat-header-cell>
+
+            <mat-cell  *matCellDef="let element"><mat-list>
+              <mat-list-item class="scoreList"
+                  *ngFor="let toi_score of element.scores; let i=index">
+                  <b *ngIf="languageService.getCodeSiteLanguage()!=='it'">{{toi_score.name}}:</b>
+                  <b *ngIf="languageService.getCodeSiteLanguage()=='it'">{{toi_score.nome}}:</b>
+                   {{ toi_score.score | number:'1.8-8' }}
+              </mat-list-item></mat-list>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="modified">
+            <mat-header-cell  *matHeaderCellDef></mat-header-cell>
+            <mat-cell  *matCellDef="let element" > 
+             <mat-icon [style.color]="element.has_been_changed ? 'red': 'green'" [matTooltip]="element.has_been_changed ? ('admin.tooltip.has_poi_modified'|translate): ('admin.tooltip.not_poi_modified'|translate)">{{element.has_been_changed ?'cancel':'check_circle'}}</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef>{{'admin.common.action'|translate}} </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button (click)="deletePOI(element)" mat-icon-button><mat-icon
+                    matTooltip="{{'admin.tooltip.delete'|translate}}">close</mat-icon> </button>
+                <button (click)="editPOI(element)" mat-icon-button><mat-icon
+                    matTooltip="{{'admin.tooltip.edit'|translate}}">edit</mat-icon></button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+      <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+
+      <div style="width: 100%; text-align: center;">
+        <button mat-stroked-button (click)="startPoiToiComputation()"
+          color="warn">{{'admin.handle_poi.start_poi_toi_comp'|translate}}</button>
+        </div>
+    </mat-card-content>
+  </mat-card>
+</div>

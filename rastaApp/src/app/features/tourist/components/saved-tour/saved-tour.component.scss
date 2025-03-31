@@ -1,0 +1,119 @@
+
+:host {
+    display: flex;
+    justify-content: center; 
+    min-height: 100%; 
+}
+
+
+mat-card{
+    width: calc(90% - 32px);
+    border-radius: 0px;
+    background-color: rgb(255,255,255,0.95)
+}
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    mat-card {
+    width: calc(95% - 10px);
+    padding: 5px;
+    }
+}
+
+mat-expansion-panel {
+    background-color: #f7f7f7;
+}
+
+mat-expansion-panel-header .mat-content {
+    flex-direction: column !important;
+}
+
+mat-panel-description {
+    margin-bottom: 10px;
+}
+
+mat-panel-title {
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content_title {
+    display: flex;
+    margin: 15px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#headerDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+mat-divider {
+    margin: 10px 0;
+}
+
+mat-list {
+    padding: 0;
+}
+
+
+
+.dailyItineraryDiv {
+    margin: 20px 0px 0 20px;
+}
+
+mat-list {
+    width: max-content;
+}
+
+mat-list-item {
+    margin: 5px 0;
+    font-size: 100% !important;
+}
+
+.internalDiv {
+    width: 100%;
+    display: inline-grid !important;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (max-width: 640px) {
+    .internalDiv {
+        width: 100%;
+        display: inline-grid !important;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .internalDiv mat-label {
+        margin-left: 25px;
+    }
+}
+
+.internalDiv div {
+    display: flex;
+    align-content: center;
+}
+
+mat-button-toggle mat-icon {
+    height: 22px;
+    width: 22px;
+}
+
+.notFavorite_div {
+    display: flex;
+    justify-content: space-between;
+}
+
+mat-label {
+    align-content: center;
+}
+button{
+    margin-bottom: 10px;
+}

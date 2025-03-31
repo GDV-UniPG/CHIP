@@ -1,0 +1,356 @@
+{
+  "toolbar_action": {
+    "home_action_key":"Home page",
+    "new_itinerary_action_key": "New itinerary",
+    "profile_action_key": "Profile",
+    "saved_tour_action_key": "Saved Itineraries",
+    "handle_poi_action_key": "Handle POI",
+    "handle_toi_action_key": "Handle TOI",
+    "add_admin_action_key": "Add administrator",
+    "show_visualization_action_key": "Visualization"
+  },
+  "toolbar_tooltip": {
+    "language_button": "Change language"
+  },
+  "home":{
+    "main_title":"Welcome to ",
+    "how_works_title":"How it Works",
+    "how_works_subtitle":"Create your itinerary in a few simple clicks!",
+    "main_subtitle":"Plan your next trip to Umbria without stress!",
+    "how_works_desc2":" helps you create personalized itineraries based on your preferences and other constraints you set.",
+    "subtitle1":"CHIP has been developed within the ",
+    "subtitle2":"Project RASTA",
+    "subtitle3": ": Realtà Aumentata e Story-Telling Automatizzato per la valorizzazione di Beni Culturali ed Itinerari - Augmented Reality and Automated Storytelling ",
+    "step":{
+      "preferences_title":"Indicate Your interests and preferences",
+      "preferences_desc":"Are you passionate about culture, sports or maybe good food? Let us know what you love by selecting from a wide variety of options! This way, we can suggest the Points of greatest Interest, perfectly in line with your tastes and passions.",
+      "ranking_title":"Customize your Choice",
+      "ranking_desc":"From the ranking of Points Of Interest selected specifically for you based on your preferences, choose the ones that fascinate you and the ones to avoid.",
+      "constraints_title":"Define the Details",
+      "constraints_desc":"Indicate the Means of transport, the Starting Point and other Time Constraints. This information will help us create a tailor-made itinerary, in line with your needs.",
+      "itinerary_title":"Explore Your Itinerary Options",
+      "itinerary_desc":"Discover one or more custom itinerary options. Choose the one that best suits your tastes and preferences for a unique and unforgettable travel experience!",
+      "start_now_step":"Start Now!",
+      "start_now_desc":"Start now by creating your first Itinerary!"
+    }
+  },
+  "ranking":{
+    "open_page_tooltip":"Open POI Web Page"
+  },
+  "user_common": {
+    "name_field": "Name",
+    "surname_field": "Surname",
+    "gender_field": "Gender",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "birthday_field": "Date of birth",
+    "region_field": "Region",
+    "country_field": "Country",
+    "placeholder": {
+      "email": "Type your email",
+      "password": "Type your password"
+    }
+  },
+
+  "signup": {
+    "title": "Signup",
+    "repeat_pw_field": "Repeat your password",
+    "required_field_alert": "This field is required",
+    "confirm": "Signup",
+    "placeholder": {
+      "name": "Type your name",
+      "surname": "Type your surname",
+      "gender": "Gender",
+      "repeat_password": "Confirm your password"
+    }
+  },
+
+  "login": {
+    "forgot_pwd_label": "Forgot password?",
+    "forgot_pwd_button": "Recover your password",
+    "signup_label": "Not registered yet?",
+    "signup_button": "Signup",
+    "send_email_button": "Send email",
+    "recover_pwd_title": "Insert your email"
+  },
+
+  "user_profile": {
+    "title": "User Profile",
+    "sub_title_personal_info": "Personal Info",
+    "contacts": "Contacts",
+    "toi_pref": "TOI Preferences",
+    "alert_toi_pref": "You haven't saved your preferences yet, do it now!",
+    "saved_tour": "Saved itineraries",
+    "alert_saved_tour": "You haven't saved any itinearies yet!",
+    "edit_info_button_text": "Edit personal Info",
+    "change_password_button_text": "Change password",
+    "save_button_text": "Save",
+    "password": {
+      "actual_password": "Actual password",
+      "new_password": "New Password",
+      "repeat_password": "Confirm your password"
+    },
+    "delete_user_button": "Delete Account",
+    "delete_dialog_content": "Are you sure to delete the account?",
+    "tooltip": {
+      "add_preferences": "Add TOI preferences",
+      "update_preferences": "Update TOI preferences"
+    }
+  },
+
+  "admin": {
+    "common": {
+      "color":"Color",
+      "en_name": "English name",
+      "it_name": "Italian name",
+      "en_desc": "English description",
+      "it_desc": "Italian description",
+      "name": "Name",
+      "description": "Description",
+      "action": "Action",
+      "add": "Add the",
+      "update": "Update the",
+      "scores":"TOI-Scores",
+      "scores_slide_toggle": "Automatic score recalculation: ",
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
+    "action": {
+      "add": "Add a",
+      "edit": "Edit the"
+    },
+    "tooltip": {
+      "umbriatourism":"Synchronize POIs with Umbria Tourism",
+      "color":"Color associated with TOI",
+      "add_new": "Add a new",
+      "delete": "Delete",
+      "edit": "Edit",
+      "close": "Close window",
+      "add_duration": "Add visit duration",
+      "del_duration": "delete visit duration",
+      "add_ext_link": "add external link",
+      "del_ext_link": "delete external link",
+      "has_modified":"You must start the POI-TOI computation to update the TOI having modified the description",
+      "not_modified": "The TOI is updated!",
+      "has_poi_modified":"You must start the POI-TOI computation to update the POI having modified the description",
+      "not_poi_modified": "The POI is updated!"
+    },
+    "placeholder": {
+      
+      "name_it_poi": "Type the ITALIAN name of the POI",
+      "name_en_poi": "Type the ENGLISH name of the POI",
+      "description_it_poi": "Add a description for the POI in ITALIAN",
+      "description_en_poi": "Add a description for the POI in ENGLISH",
+      "name_it_toi": "Type the ITALIAN name of the TOI",
+      "name_en_toi": "Type the ENGLISH name of the TOI",
+      "description_it_toi": "Add a description for the TOI in ITALIAN",
+      "description_en_toi": "Add a description for the TOI in ENGLISH",
+      "primary_url": "Insert the primary ULR of the POI",
+      "wiki_url": "Insert the wiki ULR of the POI",
+      "latitude": "Insert the latitude of the POI",
+      "longitude": "Insert the longitude of the POI",
+      "visit_dur": "Insert the time needed to visit the POI"
+    },
+    "handle_poi": {
+      "image":"Show only POI without image",
+      "primary_url_filter":"Show only POI without primary URL", 
+      "has_been_changed":"Show only POI with description changed",
+      "has_score_changed":"Show only POIs that have had their scores manually changed",
+      "search_text":"Search POI by name",
+      "close_map": "Close map",
+      "open_map": "Look for the Poi on the map",
+      "primary_url": "Primary URL",
+      "wiki_url": "Wiki URL",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "vis_dur": "Visit duration (min)",
+      "duration": "Duration",
+      "ext_links": "External Links",
+      "ext_link": "External Link",
+      "start_poi_toi_comp": "Start POI-TOI Computation",
+      "delete_toi": "Are you sure you want to delete the TOI? The operation is irreversible! ",
+      "delete_poi": "Are you sure you want to delete the POI? The operation is irreversible! ",
+      "replace_image": "Replace the POI's image",
+      "upload_image":"Upload an image of the POI"      
+    },
+
+    "add_admin": {
+      "title": "Enter administrator's informations",
+      "button": "Confirm"
+    },
+    "visualization":{
+      "control_panel":"Control panel",
+      "label_size": "Set the labels size:",
+      "degree_similarity":"Choose the desired degree of similarity between the POIs:",
+      "poi_to_see":"Select the TOIs whose POIs you want to see",
+      "toi_similarity":"Select TOIs with which to calculate the similarity between the POIs",
+      "compute_similarity":"Compute similarity",
+      "search_poi":"Search a specific POI",
+      "select_poi":"Select POIs to highlight",
+      "tooltip":{
+        "switch_fd":"Switch to Force Directed Layout",
+        "switch_PCA": "Switch to PCA Feature Reduction Layout",
+        "switch_geo": "Switch to Geo Layout",
+        "show_label": "Show labels",
+        "hide_label":"Hide all labels",
+        "show_links":"Show Links",
+        "hide_links":"Hide Links",
+        "uncheck_pois":"Uncheck all POIs",
+        "show_prev_labels":"Show previous labels",
+        "show_next_labels":"Show next labels",
+        "enable_lazo":"Enable LAZO Selection",
+        "disable_lazo":"Disable LAZO Selection",
+        "info_pois":"Show POIs Info",
+        "remove_links_same_toi":"Remove Links between POIs with the same TOI",
+        "add_links_same_toi":"Add Links between POIs with the same TOI"
+      },
+      "viz_label":{
+        "instructionsTextWithLinks": "Click on a POI (node) to see the most similar ones. ",
+        "instructionsTextNoLinks": "Click on a POI (node) to highlight it",
+        "group_toi":"Click to group by TOI",
+        "poi_sim":"POIs similarity",
+        "zoom_district":"Click to zoom in the district"
+      }
+    }
+  },
+
+  "itinerary": {
+    "result_step":"Itineraries",
+    "preference_step": "Preferences",
+    "ranking_step": "POI Ranking",
+    "constraint_step": "Transportation mean and time",
+    "result": {
+      "print_itinerary":"Print itinerary",
+      "title_itinerary":"Enter the itinerary title",
+      "itinerary_name":"Itinerary title",
+      "itinerary_confirm":"Confirm",
+      "itinerary_cancel":"Cancel",
+      "visit_duration_poi":"Visit duration for the POI",
+      "init_visit_time":"Visit start time",
+      "end_visit_time":"Visit end time",
+      "favorite_tooltip":"Remove the itinerary from favorites",
+      "not_favorite_tooltip":"Add the itinerary to your favorites",
+      "sub_title": "These are the itineraries that best suit your preferences!",
+      "header":"itinerary",
+      "step_tab":"Stages",
+      "map_tab":"Map",
+      "info":"Poi information",
+      "number_day_tab":"Day",
+      "save_itinerary":"Save the itinerary",
+      "save":"Save",
+      "name":"Name",
+      "name_tooltip":"Insert a name for the itinerary",
+      "description":"Description",
+      "description_tooltip":"Insert a description for the itinerary"
+    },
+    "saved":{
+      "open_details_button": "Show itinerary details",
+      "close_details_button": "Close itinerary details",
+      "number_day":"Number of day",
+      "edit_info":"Edit itinerary information",
+      "favorite_delete":"Remove the itinerary from favorites",
+      "not_favorite_delete":"Remove itinerary rating",
+      "favorite_title":"Favorite itineraries",
+      "rated_not_favorite_title":"Rated itineraries but not added to favorites",
+      "favorite_description": "Description",
+      "favorite_name": "Name",
+      "favorite_not_rated":"You haven't rated the itinerary yet, do it now!",
+      "total_duration":"Total duration",
+      "transport_mean": "Mean of transport",
+      "score": "Score",
+      "rated_title":"Only rated itineraries",
+      "not_favorite_intinerary": "You have not yet added any itinerary to your favorites, create a new itinerary now!",
+      "not_favorite_createIt":"Create a new Itinerary",
+      "remove_from_favorite_title":"Are you sure you want to delete the itinerary from favorites?",
+      "remove_from_favorite_description":"If the itinerary has not yet been rated it will be permanently removed from the system, otherwise it will be moved to the rated itineraries",
+      "remove_title":"Are you sure you want to delete the itinerary?",
+      "remove_description":"The itinerary will be permanently removed from the system",
+      "daily_total_duration":"Total duration of the daily itinerary",
+      "total_poi":"Total number of POIs",
+      "ext_link":"External Links"
+    },
+    "preferences": {
+      "sub_title_map":"Choose the district in which to limit the itinerary, if you wish!",
+      "sub_title": "Send us your preferences to make your experience better!",
+      "button": "Send preferences",
+      "dialog": {
+        "title": "Save Preferences",
+        "content": "Do you want to save your preferences as final?"
+      }
+    },
+    "ranking": {
+      "info_button":"Yes: will prioritize this POI for inclusion in the itinerary. Maybe: will leave the choice to the algorithm based on overall preferences. Not: will exclude this POI.",
+      "yes_option":"Yes",
+      "not_option":"No",
+      "maybe_option":"Maybe",
+      "title_poi":"Point of Interest",
+      "title_in_exclude":"Are you interested?",
+      "sub_title": "These are the POIs that best suit your preferences",
+      "button": "Got it!",
+      "remove_from_inclusion":"Remove the POI from the included",
+      "include_poi":"Include the POI in the itinerary",
+      "maybe_poi":"Leave the choice to the algorithm",
+      "remove_from_exclusion": "Remove the POI from the excluded",
+      "exclude_poi":"Exclude the POI from the itinerary"
+    },
+    "constraints": {
+      "unbounded":"Recommended by Umbria Tourism",
+      "current_position_error":"Geolocation not active. Try to activate it or choose a different starting point!", 
+      "n_alternatives":"Number of alternative itineraries to show",
+      "current_pos":"Current position",
+      "sub_title": "Send us the constraints that the tour must satisfy!",
+      "button": "Send constraints",
+      "total_duration": "Total duration of daily tour ",
+      "point_duration": "Maximum duration of the visit for each point of interest",
+      "transport_means": "Means of transport",
+      "poi_to_include":"Select POIs you want to visit",
+      "poi_to_exclude":"Select POIs you don't want to visit",
+      "number_of_days":"Number of days",
+      "starter_point": "Starting point",
+      "transport_mean":{
+        "car":"Car",
+        "foot":"On foot",
+        "cycle":"By bike"
+      }
+    }
+  },
+
+  "new_pwd": {
+    "title": "Insert the new password",
+    "button": "Confirm"
+  },
+  "verify_email": {
+    "title": "Click on the button to verify your email",
+    "button": "Verify email"
+  },
+  "custom_dialog": {
+    "yes_button": "Yes",
+    "no_button": "No",
+    "success_title": "SUCCESS!",
+    "error_title": "WARNING!"
+  },
+
+
+  "validator_strings": {
+    "required_field": "This field is required",
+    "not_valid_email_address": "Not a valid email address",
+    "not_valid_year": "Enter a valid year",
+    "not_valid_month": "Enter a valid month",
+    "not_valid_day": "Enter a valid day",
+    "not_valid_date": "Enter a valid date: GG/MM/YYYY",
+    "min_pwd": "The password must be at least 8 characters long",
+    "uppercase_pwd": "The password must contain at least one capital letter",
+    "lowercase_pwd": "The password must contain at least one lowercase letter",
+    "symbol_pwd": "The password must contain at least one special symbol between @, $, !, %, *, #, ?, &, ^, _, -",
+    "max_pwd": "The password must be less than 30 characters",
+    "number_pwd": "The password must contain at least a number",
+    "not_valid_pwd": "Not a valid password",
+    "matching_pwd": "The passwords don't match",
+    "min_toi":"Score must be higher or equal than 0",
+    "max_toi":"Score must be less or equal than 10"
+  }
+  ,
+  "map":{
+    "search_input_placeholder": "search POI"
+  }
+}

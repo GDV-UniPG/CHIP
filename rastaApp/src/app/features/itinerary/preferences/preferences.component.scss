@@ -1,0 +1,133 @@
+
+
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#preferences{
+    width:100%;
+    //max-width: 800px;
+}
+mat-label{
+    overflow-wrap: anywhere;
+}
+.district{
+    fill:#3a4d58;
+  }
+  .district:hover{
+    fill:rgb(112, 168, 97)
+  }
+  #svg-image{
+    display: none;
+    padding-right: 16px;
+    //max-width: 400px;
+    width: 100%;
+    //display: flex ;
+    align-items: center;
+    
+    flex-direction: column;
+  }
+  #svg-image svg{
+    width: 350px;
+  }
+
+.toi-card{
+    width:90%!important;
+    height: 80%!important;
+}
+mat-card{
+    box-shadow: none!important;
+}
+
+.mat-list-item-content{
+    width: 100%!important;
+    display:block!important;
+    padding: 0%!important; 
+}
+
+.toi-legend-value{
+    display: inline-block!important;
+    text-align: start;
+    font-weight: bold;
+    width:10%!important;
+}
+.toi-legend-name{
+    display: inline-block!important;
+    text-align: start;
+    width:90%!important;
+}
+
+.toi-slider, .toi-legend{
+    display:block!important; 
+    width: 100%!important  
+}
+
+@media screen and (min-width:1000px){
+    #svg-image{
+        width: 40%;
+    }
+    #container{
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: space-between;
+        align-items: anchor-center;
+    }
+    #preferences{
+        width: calc(100vw - 350px);
+    }
+}
+
+
+@media screen and (max-width:400px){
+    #svg-image svg{
+      width: 280px;
+    }
+}
+
+@media screen and (min-width:800px){    
+    .mat-list-item-content,.toi-slider, .toi-legend{  
+        display:flex!important;
+    }
+    .toi-legend{
+        min-width: 150px;
+        width: 25%!important;
+    }
+    mat-label{
+        min-width: 150px;
+        overflow-wrap: anywhere;
+    }
+    .toi-slider{
+        width:100%!important;
+    }
+    .toi-legend-name{
+        text-align: end;
+    }
+    .toi-legend-value{
+        text-align: end;
+    }
+}
+
+
+mat-slider{
+    width:100%!important;
+}
+mat-list-item{
+    margin-bottom: 2%;
+    height: 100%;
+}
+
+.slider-bg-0, .slider-bg-1  {
+    color: red !important;
+}
+.slider-bg-2, .slider-bg-3, .slider-bg-4 {
+        color: rgb(255, 105, 105) !important;
+}
+ 
+.slider-bg-6, .slider-bg-7, .slider-bg-8 {
+    color: rgb(117, 243, 117);
+  }
+  .slider-bg-9, .slider-bg-10 {
+    color: green;
+  }
+  

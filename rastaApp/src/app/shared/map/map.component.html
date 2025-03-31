@@ -1,0 +1,31 @@
+<div class="map-container">
+    <div class="map-frame">
+      <div id="map"></div>
+    </div>
+  </div>
+  <ng-template  #popupTemplate let-poi>
+    <div id="popup" style="text-align:center; min-width: 200px;">
+      <h4 align="center"><b>{{ poi.name }}</b></h4>
+  
+      <img *ngIf="poi.image_url" 
+           [src]="'https://mozart.diei.unipg.it/rasta/images/images/' + poi.id + '.jpg'" 
+           alt="Image" 
+           style="max-height:150px;max-width:100%">
+      
+      <div class="radio-group">
+        {{'itinerary.ranking.title_in_exclude'|translate}}
+        <div class="toggle-container">
+          <div class="toggle-option" [class.active]="poi.isSelected === 1" (click)="toggleState(poi, 1)">
+            <mat-icon matTooltip="{{'itinerary.ranking.yes_option' | translate}}">check</mat-icon>
+          </div>
+          <div class="slider" [ngClass]="{'left': poi.isSelected === 1, 'center': poi.isSelected === 0, 'right': poi.isSelected === -1}"></div>
+          <div class="toggle-option" [class.active]="poi.isSelected === 0" (click)="toggleState(poi, 0)">
+            <mat-icon matTooltip="{{'itinerary.ranking.maybe_option' | translate}}" style="font-size: 8px;height: 6px; width: 6px;;">lens</mat-icon>
+          </div>
+          <div class="toggle-option" [class.active]="poi.isSelected === -1" (click)="toggleState(poi, -1)">
+            <mat-icon matTooltip="{{'itinerary.ranking.not_option' | translate}}">close</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>

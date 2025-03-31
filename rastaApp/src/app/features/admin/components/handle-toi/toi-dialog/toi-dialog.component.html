@@ -1,0 +1,50 @@
+<mat-dialog-content>
+    <div class="div-title">
+      <span mat-dialog-title>{{translatedDialogAction}} TOI </span>
+      <div id="div-exit-button">
+        <button mat-icon-button matTooltip="{{'admin.tooltip.close' | translate}}" (click)="close()">
+        <mat-icon iconPositionEnd>close</mat-icon>
+      </button></div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="(dialogAction =='add') ? addToi() : updateToi()">
+        <mat-form-field appearance="fill">
+          <mat-label>{{'admin.common.en_name'|translate}}:</mat-label>
+            <input matInput type="text"  [placeholder]='(dialogAction=="add")?nameEnPlaceholder:toi.name'  formControlName="name">
+            <mat-error *ngIf="checkValidator.checkValidation('name', form)">
+              {{'signup.required_field_alert'|translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{'admin.common.it_name'|translate}}:</mat-label>
+            <input matInput type="text"  [placeholder]='(dialogAction=="add")?nameItPlaceholder:toi.nome'  formControlName="nome">
+            <mat-error *ngIf="checkValidator.checkValidation('nome', form)">
+              {{'signup.required_field_alert'|translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>{{'admin.common.en_desc'|translate}}:</mat-label>
+            <textarea  matInput type="text" [placeholder]='(dialogAction=="add")?descriptionEnPlaceholder:toi.description' formControlName="description"></textarea>
+            <mat-error *ngIf="checkValidator.checkValidation('description', form)">
+              {{'signup.required_field_alert'|translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{'admin.common.it_desc'|translate}}:</mat-label>
+            <textarea  matInput type="text" [placeholder]='(dialogAction=="add")?descriptionItPlaceholder:toi.descrizione' formControlName="descrizione"></textarea>
+            <mat-error *ngIf="checkValidator.checkValidation('descrizione', form)">
+              {{'signup.required_field_alert'|translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{'admin.common.color'|translate}}:</mat-label>
+            <input matInput type="color" placeholder="{{'admin.tooltip.color' |translate}}" formControlName="color"/>
+          </mat-form-field>
+          <div  align="center">
+            <button *ngIf="dialogAction=='add'" type="submit" [disabled]="!form.valid" mat-button>{{'admin.common.add'|translate}} TOI</button>
+            <button *ngIf="dialogAction=='edit'" type="submit" [disabled]="!form.valid" mat-button>{{'admin.common.update'|translate}} TOI</button>
+          </div>
+    </form>
+   
+</mat-dialog-content>
+

@@ -1,0 +1,62 @@
+
+<mat-card>
+    <mat-card-title>{{'itinerary.constraint_step'|translate}}</mat-card-title>
+        <mat-card-content>
+            <p>{{'itinerary.constraints.sub_title'|translate}}</p>
+            
+            <div class="form">
+
+            <div fxLayout="row">
+              <mat-label>{{'itinerary.constraints.transport_means'|translate}}: *</mat-label><br>
+              <div id="transportMeans_div">
+              <button mat-icon-button *ngFor="let mean of transport_means" (click)="selectMean(mean)" [ngClass]="{ 'selected': form.get('transport_mean').value === mean }"  placeholder="mean" >
+                  <mat-icon  matTooltip='{{means_label_dict[mean] |translate}}' iconPositionEnd>{{means_icon_dict[mean]}}</mat-icon>
+              </button>
+              </div>
+            </div>  
+            <form [formGroup]="form"  (ngSubmit)="sendConstraints()">
+              
+              <mat-label>{{'itinerary.constraints.starter_point'|translate}}: *</mat-label><br>
+              <mat-form-field>
+                    <mat-select  formControlName="starter_point">
+                        <mat-option  value="current">{{'itinerary.constraints.current_pos'|translate}}</mat-option>
+                        <mat-option *ngFor="let municipality of itineraryService.municipalities" [value]="municipality.id">{{municipality.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field><br>
+                  <mat-label>{{'itinerary.constraints.number_of_days'|translate}} *: </mat-label><br>
+                  <mat-form-field>
+                   
+                    <mat-select formControlName="number_day">
+                      <mat-option *ngFor="let number of number_days_options" [value]="number">{{number}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <br>
+              <mat-label>{{'itinerary.constraints.total_duration'|translate}} *: </mat-label><br>
+              <mat-form-field>
+                    <mat-label></mat-label>
+                    <mat-select  formControlName="total_duration">
+                        <mat-option *ngFor="let option of total_duration_options" [value]="option">{{option | minutesToHours }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <br>
+                  <mat-label>{{'itinerary.constraints.point_duration'|translate}} *: </mat-label><br>
+                  <mat-form-field>
+                    <mat-label></mat-label>
+                    <mat-select  formControlName="poi_visit_max_duration">
+                      <mat-option *ngFor="let option of poi_duration_options" [value]="option"> {{ option === 'unbounded' ? ('itinerary.constraints.unbounded'|translate) : (option | minutesToHours) }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <br>
+                  <mat-label>{{'itinerary.constraints.n_alternatives'|translate}} *: </mat-label><br>
+                  
+                    <mat-radio-group formControlName="n_alternatives" color="primary">
+                      <mat-radio-button [value]="1">1</mat-radio-button>
+                      <mat-radio-button [value]="2">2</mat-radio-button>                      
+                      <mat-radio-button [value]="3">3</mat-radio-button>
+                    </mat-radio-group>
+                    
+                  <div style="text-align: end;"><button mat-raised-button type="submit" [disabled]="!form.valid" matStepperNext>{{'itinerary.constraints.button'|translate}}</button></div>
+            </form>
+          </div>
+          <br><br>
+        </mat-card-content>

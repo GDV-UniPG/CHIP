@@ -1,0 +1,40 @@
+<mat-card>
+    <mat-card-title >Login</mat-card-title>
+      <mat-card-content >
+        <form [formGroup]="form" (ngSubmit)="login()">
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" placeholder="{{'user_common.placeholder.email' | translate }}"  name="username" formControlName="email">
+            <mat-error  *ngIf="checkValidator.checkValidation('email', form)">
+              {{checkValidator.emailErrors(form)}}
+             </mat-error>   
+          </mat-form-field>
+  
+          <br>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+           <input  matInput [type]='showPwd ? "text" : "password"' placeholder="{{'user_common.placeholder.password' | translate }}"  formControlName="pwd" >
+              <mat-icon matSuffix (click)="showPwd=!showPwd">{{showPwd ? 'visibility_off' : 'visibility'}}</mat-icon>            
+              <mat-error  *ngIf="checkValidator.checkValidation('pwd', form)">
+                {{checkValidator.pwdErrors('pwd',form)}}
+               </mat-error>  
+          </mat-form-field>
+          <br>
+          <button type="submit" [disabled]="!form.valid" mat-button>Login</button>
+          </form>
+          <mat-list>
+          <mat-list-item>
+            <div class="mat-list-item-content">
+              <mat-label>{{'login.forgot_pwd_label'|translate}}</mat-label>
+              <button mat-button type="button" (click)="onForgotPassword()"> {{'login.forgot_pwd_button'|translate}}</button>
+            </div>
+           </mat-list-item>
+          <mat-list-item>
+            <div class="mat-list-item-content">
+            <mat-label>{{'login.signup_label'|translate}}</mat-label>
+            <button mat-button type="button" (click)="appUtil.goLink('signup')"> {{'login.signup_button'|translate}}</button>
+            </div>
+          </mat-list-item>
+        </mat-list>
+        </mat-card-content>
+    </mat-card>

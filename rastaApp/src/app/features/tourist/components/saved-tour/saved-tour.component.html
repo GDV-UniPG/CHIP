@@ -1,0 +1,210 @@
+
+<mat-card>
+    <h3><i><b>{{'itinerary.saved.favorite_title'|translate}}</b></i></h3>
+    <div *ngIf="favoriteItineraries.length>0">
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let itinerary of favoriteItineraries; let i=index">
+            <mat-expansion-panel-header style="height: auto;">
+                <mat-panel-title>
+                    <mat-label style="align-content: center">
+                        {{itinerary.name}}
+                    </mat-label>
+                    <div id="headerDiv" >
+                        <button  mat-icon-button (click)="updateItinerarynfo($event, i);  $event.stopPropagation()" >
+                            <mat-icon iconPositionEnd matTooltip="{{'itinerary.saved.edit_info' | translate}}">edit</mat-icon>
+                        </button>
+                        <button  mat-icon-button (click)="removeItineraryFromFavorites($event, i);  $event.stopPropagation()" >
+                            <mat-icon iconPositionEnd matTooltip="{{'itinerary.saved.favorite_delete' | translate}}">delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{itinerary.description}}
+                    
+                </mat-panel-description>
+               
+            </mat-expansion-panel-header>
+            <div class="itineraryInfo_div">
+                
+            <mat-list>
+                <mat-list-item>
+                    <div class="internalDiv">
+                    <div>
+                      <mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+                        <b>{{'itinerary.saved.score'|translate}}</b>: 
+                    </div>
+                    <div style="display: block;">
+                      <p *ngIf="itinerary.score == null">
+                      <i>{{'itinerary.saved.favorite_not_rated'|translate}}</i>
+                      </p>
+                    <mat-button-toggle-group [(ngModel)]=itinerary.score [value]=itinerary.score (click)="updateItineraryScore($event, i, 'favorite'); $event.stopPropagation()">
+                        <mat-button-toggle matTooltip="1" matTooltipPosition="above" [value]=1>
+                          <mat-icon [style.color]="itinerary.score==1 ? 'red' : 'black'" 
+                          class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==1 ? '1_full' : '1_empty' }}"></mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle matTooltip="2" matTooltipPosition="above" [value]=2>
+                          <mat-icon [style.color]="itinerary.score==2 ? 'orange' : 'black'" 
+                          class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==2 ? '2_full' : '2_empty' }}"></mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle matTooltip="3" matTooltipPosition="above" [value]=3>
+                          <mat-icon [style.color]="itinerary.score==3 ? '#efef2a' : 'black'" 
+                          class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==3 ? '3_full' : '3_empty' }}"></mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle matTooltip="4" matTooltipPosition="above" [value]=4>
+                          <mat-icon [style.color]="itinerary.score==4 ? '#74ff3f' : 'black'" 
+                          class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==4 ? '4_full' : '4_empty' }}"></mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle matTooltip="5" matTooltipPosition="above" [value]=5>
+                          <mat-icon [style.color]="itinerary.score==5 ? 'green' : 'black'" 
+                          class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==5 ? '5_full' : '5_empty' }}"></mat-icon>
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="internalDiv">
+                    <div><mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+                        <b>{{'itinerary.saved.transport_mean'|translate}}</b>: 
+                      </div>
+                    <mat-label> 
+                    {{itinerary.transport_mean | transportMean}}
+                    </mat-label>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="internalDiv">
+                    <div>
+                    <mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+                    <b>{{'itinerary.saved.total_duration'|translate}}</b>:
+                    </div>
+                    <mat-label> 
+                    {{itinerary.total_duration_min | minutesToHours}}
+                    </mat-label>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="internalDiv">
+                  <div>
+                  <mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+                  <b>{{'itinerary.saved.number_day'|translate}}</b>:
+                  </div>
+                  <mat-label> 
+                  {{itinerary.steps.n_days}}
+                  </mat-label>
+                  </div>
+              </mat-list-item>
+            </mat-list>
+            </div>
+            <div style="width:100%; display: flex; flex-direction: column;">
+              <button mat-raised-button (click)="openDetails(i, 'favorite')">{{itinerary.open_details ?('itinerary.saved.close_details_button'|translate) :('itinerary.saved.open_details_button'|translate)}} </button>
+            </div>
+            <app-itinerary-details *ngIf="itinerary.open_details" [transportMean]="itinerary.transport_mean" [steps]="itinerary.steps"  [start_info]="itinerary.start_info" [itineraryIndex]="i"></app-itinerary-details>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    </div>
+    <div *ngIf="favoriteItineraries.length==0" class="notFavorite_div">
+      <mat-label>{{'itinerary.saved.not_favorite_intinerary'|translate}}</mat-label>
+      <button mat-icon-button matTooltip='{{"itinerary.saved.not_favorite_createIt" | translate}}' (click)="appUtilService.goLink('itinerary')">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+
+    <mat-divider *ngIf="ratedItineraries.length>0"></mat-divider>
+    <div *ngIf="ratedItineraries.length>0">
+      <h4 style="margin-top: 20px;"><i>{{'itinerary.saved.rated_not_favorite_title'|translate}}</i></h4>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let itinerary of ratedItineraries; let i=index">
+          <mat-expansion-panel-header style="height: auto;">
+            <mat-panel-title>
+                <mat-label style="align-content: center">
+                    {{i+1}} {{'itinerary.result.header'|translate}}
+                </mat-label>
+                <div id="headerDiv" >
+                  <button  mat-icon-button (click)="addItineraryToFavorite($event, i);  $event.stopPropagation()" >
+                    <mat-icon iconPositionEnd matTooltip="{{'itinerary.result.not_favorite_tooltip'|translate}}" >favorite_border</mat-icon>
+                    </button>
+                  <button  mat-icon-button (click)="removeItinerary($event, i);  $event.stopPropagation()" >
+                    <mat-icon iconPositionEnd matTooltip="{{'itinerary.saved.not_favorite_delete' | translate}}">delete</mat-icon>
+                    </button>
+                </div>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item>
+              <div class="internalDiv">
+              <div>
+                <mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+                  <b>{{'itinerary.saved.score'|translate}}</b>: 
+              </div>
+              <div style="display: block;">
+                <p *ngIf="itinerary.score == null">
+                <i>{{'itinerary.saved.favorite_not_rated'|translate}}</i>
+                </p>
+                <mat-button-toggle-group [(ngModel)]=itinerary.score [value]=itinerary.score (click)="updateItineraryScore($event, i, 'rated'); $event.stopPropagation()">
+                  <mat-button-toggle matTooltip="1" matTooltipPosition="above" [value]=1>
+                    <mat-icon [style.color]="itinerary.score==1 ? 'red' : 'black'" 
+                    class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==1 ? '1_full' : '1_empty' }}"></mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle matTooltip="2" matTooltipPosition="above" [value]=2>
+                    <mat-icon [style.color]="itinerary.score==2 ? 'orange' : 'black'" 
+                    class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==2 ? '2_full' : '2_empty' }}"></mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle matTooltip="3" matTooltipPosition="above" [value]=3>
+                    <mat-icon [style.color]="itinerary.score==3 ? '#efef2a' : 'black'" 
+                    class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==3 ? '3_full' : '3_empty' }}"></mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle matTooltip="4" matTooltipPosition="above" [value]=4>
+                    <mat-icon [style.color]="itinerary.score==4 ? '#74ff3f' : 'black'" 
+                    class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==4 ? '4_full' : '4_empty' }}"></mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle matTooltip="5" matTooltipPosition="above" [value]=5>
+                    <mat-icon [style.color]="itinerary.score==5 ? 'green' : 'black'" 
+                    class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==5 ? '5_full' : '5_empty' }}"></mat-icon>
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+              <div class="internalDiv">
+              <div><mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+                  <b>{{'itinerary.saved.transport_mean'|translate}}</b>: 
+                </div>
+              <mat-label> 
+              {{itinerary.transport_mean| transportMean}}
+              </mat-label>
+              </div>
+          </mat-list-item>
+          <mat-list-item>
+              <div class="internalDiv">
+              <div>
+              <mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+              <b>{{'itinerary.saved.total_duration'|translate}}</b>:
+              </div>
+              <mat-label> 
+              {{itinerary.total_duration_min | minutesToHours}}
+              </mat-label>
+              </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="internalDiv">
+            <div>
+            <mat-icon class="bullet-point">keyboard_arrow_right</mat-icon>
+            <b>{{'itinerary.saved.number_day'|translate}}</b>:
+            </div>
+            <mat-label> 
+              {{itinerary.steps.n_days}}
+            </mat-label>
+            </div>
+        </mat-list-item>
+      </mat-list>
+      <div style="width:100%; display: flex; flex-direction: column;">
+        <button mat-raised-button (click)="openDetails(i, 'rated')">{{itinerary.open_details ?('itinerary.saved.close_details_button'|translate) :('itinerary.saved.open_details_button'|translate)}} </button>
+      </div>
+     <app-itinerary-details  *ngIf="itinerary.open_details" [transportMean]="itinerary.transport_mean" [start_info]="itinerary.start_info" [steps]="itinerary.steps" [itineraryIndex]="i+favoriteItineraries.length"></app-itinerary-details>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+</mat-card>

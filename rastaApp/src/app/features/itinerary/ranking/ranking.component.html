@@ -1,0 +1,69 @@
+<mat-card>
+    <mat-card-title>{{'itinerary.ranking_step'|translate}}</mat-card-title>
+    <mat-card-content>
+        <p>{{'itinerary.ranking.sub_title'|translate}}:</p>
+        <div id="ranking-container" >
+
+            <mat-list class="ranking-list" style="overflow-y: auto;">
+                <mat-list-item class="sticky-item">
+                    <div class="item" id="title-list">
+                        <div class="poi-list">
+                            {{'itinerary.ranking.title_poi'|translate}}
+                        </div>
+                        <div class="radio-group">
+                            <div>
+                                {{'itinerary.ranking.title_in_exclude'|translate}}
+                            <button  mat-icon-button  matTooltip="{{'itinerary.ranking.info_button' | translate}}"
+                            #tooltip="matTooltip"  (click)="isMobile? tooltip.toggle():''">
+                                <mat-icon>info</mat-icon>
+                            </button>
+                            </div>      
+                        </div>
+
+                    </div>
+                </mat-list-item>
+                <mat-list-item *ngFor="let poi of userPrefPois; index as i ">
+                    <div class="item"  #itemRef>
+                        <div class="poi-list" >
+                            <mat-label style="min-width:25px;"> {{i+1}}.</mat-label>
+                            <mat-label  (click)="onItemHover(poi.name)"> {{poi.name}}</mat-label>
+                           
+                            <div *ngIf="poi.url_primary!==''" style="min-width: 25px;">
+                                <button style="width: 25px;margin: 0 5px;"  mat-icon-button (click)="goLink(poi.url_primary)">
+                                    <mat-icon iconPositionEnd 
+                                        matTooltip="{{'ranking.open_page_tooltip' | translate}}">link</mat-icon>
+                                       
+                                    </button>
+                            </div>
+                            
+                             <div *ngIf=" poi.emoticon!==null" class="icon-container" style="min-width: 26px;" (mouseenter)="poi.showTooltip = true"
+                            (mouseleave)="poi.showTooltip = false"
+                            (click)="toggleTooltip(poi)">
+                                <mat-icon  iconPositionEnd class="emoticonIcon" [style.color]="poi.color" svgIcon="{{ poi.emoticon}}"></mat-icon>
+                                <app-sentiment-tooltip *ngIf="poi.showTooltip" [positive]="poi.positive" [negative]="poi.negative" [neutral]="poi.neutral"></app-sentiment-tooltip>
+                            </div>
+                        </div>
+                        <div class="radio-group">
+                        <div  class="toggle-container">
+                            <div class="toggle-option" [class.active]="poi.isSelected === 1" (click)="toggleState(poi, 1)">
+                              <mat-icon matTooltip="{{'itinerary.ranking.yes_option'|translate}}">check</mat-icon>
+                            </div>
+                            <div class="slider" [ngClass]="{'left': poi.isSelected === 1, 'center': poi.isSelected === 0, 'right': poi.isSelected === -1}"></div>
+                            
+                            <div class="toggle-option" [class.active]="poi.isSelected === 0" (click)="toggleState(poi, 0)">
+                              <mat-icon matTooltip="{{'itinerary.ranking.maybe_option'|translate}}" style="font-size: 8px;  width: 6px;height: 6px;">lens</mat-icon>
+                            </div>
+                            <div class="toggle-option" [class.active]="poi.isSelected === -1" (click)="toggleState(poi, -1)">
+                              <mat-icon matTooltip="{{'itinerary.ranking.not_option'|translate}}">close</mat-icon>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+            <app-map [pois]="userPrefPois" [selectedPoi]="selectedItem" [user]="'tourist'" (selectedChange)="onSelectedChange($event)" (selectedPOIChange)="onSelectedPOIChange($event)"></app-map>
+        </div>
+        <div style="text-align: end;"><button mat-raised-button
+                (click)=" onNext()">{{'itinerary.ranking.button'|translate}}</button></div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ 'itinerary.result.title_itinerary' | translate }}</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>{{ 'itinerary.result.itinerary_name' | translate }}</mat-label>
+    <input matInput [(ngModel)]="title" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">{{ 'itinerary.result.itinerary_cancel' | translate }}</button>
+  <button mat-button color="primary" [disabled]="!title" (click)="confirm()">{{ 'itinerary.result.itinerary_confirm' | translate }}</button>
+</div>

@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    justify-content: center;
+  }
+  mat-card{
+    width:75% !important;
+    margin-top: 10%;
+    max-width:600px;
+  }
+
+  form {
+    width:100% !important;
+  }
+  mat-form-field {
+    width:100% !important;
+  }
+  
+  @media screen and (max-width: 600px) {
+    mat-card{
+        width:90% !important;
+    }
+  }

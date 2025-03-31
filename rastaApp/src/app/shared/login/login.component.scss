@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+  }
+  mat-card{
+    width:60% !important;
+    margin: auto;
+    padding:30px;
+    max-width: 400px;
+    min-width: 280px;
+    text-align: center;
+    background-color: rgb(255,255,255,0.95);
+  }
+  form {
+    width:100% !important;
+  }
+  mat-form-field {
+    width:100% !important;
+  }
+  
+  @media screen and (max-width: 600px) {
+    mat-card{
+        width:75% !important;
+    }
+  }
+
+
+  .mat-list-item-content{
+    font-size: smaller;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+ .cdk-overlay-pane{
+    max-width: 100%!important;    
+  }
+
+  @media screen and (max-width:450px){
+    ::ng-deep .cdk-overlay-pane{
+      width: 100%!important;    
+    }
+
+ 
+}

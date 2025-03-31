@@ -1,0 +1,20 @@
+
+<mat-vertical-stepper [linear]=true #stepper>
+    <mat-step>
+        <ng-template matStepLabel>{{'itinerary.preference_step'|translate}}</ng-template>
+         <app-preferences [itinerary]=true [dialogRef]=null (next)="onNextStep(0)"></app-preferences>
+        </mat-step>
+  
+    <mat-step id=ranking-step>
+        <ng-template matStepLabel>{{'itinerary.ranking_step'|translate}}</ng-template>
+       <app-ranking (next)="onNextStep(1)"></app-ranking>
+    </mat-step>
+    <mat-step >
+        <ng-template  matStepLabel>{{'itinerary.constraint_step'|translate}}</ng-template>
+       <app-constraints (next)="onNextStep(2)" ></app-constraints>
+    </mat-step>
+    <mat-step >
+        <ng-template  matStepLabel>{{'itinerary.result_step'|translate}}</ng-template>
+       <app-result (reset)="stepper.reset()"></app-result>
+    </mat-step>
+</mat-vertical-stepper>

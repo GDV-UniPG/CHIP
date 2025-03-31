@@ -1,0 +1,2074 @@
+openapi: 3.0.0
+info:
+  title: POI-TOI Manager API
+  version: 1.0.0
+  description: API endpoints for POI-TOI Manager services documented on swagger
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      in: header
+      name: Authorization
+      description: Bearer Token to access Auth API
+      scheme: bearer
+      bearerFormat: JWT
+servers:
+  - url: https://mozart.diei.unipg.it/rasta/poitoimanager/
+paths:
+  /get-tois:
+    get:
+      tags:
+        - No-auth
+      summary: Get list of TOIs from db.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: Returns the list of TOIs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Paesaggio
+                example:
+                  - id: 1
+                    name: Paesaggio
+                  - id: 2
+                    name: Cultura
+                  - id: 3
+                    name: Religione
+                  - id: 4
+                    name: Sport
+                  - id: 5
+                    name: Enogastronimia
+                  - id: 6
+                    name: Manifattura
+        '500':
+          description: Internal Server Error
+  /send-ids-for-pois-details:
+    post:
+      tags:
+        - No-auth
+      summary: >-
+        Returns the list of POIs (with all the details) whose id_geo_point is
+        contained in the input array.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              description: array of POI ids.
+              items:
+                type: integer
+              example:
+                - 170
+                - 44
+                - 618
+      responses:
+        '200':
+          description: Returns the array of POIs details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    id_geo_point:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Arco Etrusco di Perugia
+                    description:
+                      type: string
+                      example: Arco Etrusco di Perugia
+                    url_primary:
+                      type: string
+                      example: >-
+                        https://www.umbriatourism.it/it/-/arco-etrusco-di-perugia
+                    wiki_url:
+                      type: string
+                      example: ''
+                    latitude:
+                      type: number
+                      example: 43.02018356323242
+                    longitude:
+                      type: number
+                      example: 12.38963508605957
+                    external_links:
+                      type: array
+                      items:
+                        type: string
+                    image_url:
+                      type: string
+                      description: image URL of the POI
+                example:
+                  - id: 170
+                    id_geo_point: 170
+                    name: The Sanctuary of Merciful and Eucharistic Love
+                    url_primary: null
+                    wiki_url: null
+                    longitude: 12.482267379760742
+                    latitude: 42.747108459472656
+                    external_links: null
+                  - id: 44
+                    id_geo_point: 44
+                    name: The Collegiata Church of Michele Arcangelo
+                    url_primary: >-
+                      https://www.umbriatourism.it/it/-/collegiata-di-san-michele-arcangelo
+                    wiki_url: null
+                    longitude: 12.099006652832031
+                    latitude: 43.02900314331055
+                    external_links: null
+                  - id: 618
+                    id_geo_point: 618
+                    name: Chapel of San Severo - Perugia
+                    url_primary: null
+                    wiki_url: null
+                    longitude: 12.392200469970703
+                    latitude: 43.11287307739258
+                    external_links: null
+        '400':
+          description: Invalid data provided
+        '500':
+          description: Server Internal Error
+  /get-transport-means:
+    get:
+      tags:
+        - No-auth
+      summary: Returns the list of possible transport means
+      responses:
+        '200':
+          description: Returns the array that contains all possible transport means
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                example:
+                  - name: driving-car
+                  - name: foot-walking
+                  - name: cycling-regular
+        '500':
+          description: Server Internal Error
+  /get-municipality:
+    get:
+      tags:
+        - No-auth
+      summary: Returns the list of municipalities with geographic point id
+      responses:
+        '200':
+          description: Returns the array that contains all the municipalities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+        '500':
+          description: Server Internal Error
+  /user/admin/get-admin-info:
+    get:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Returns info about admin.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: Returns info about admin.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Mario
+                  surname:
+                    type: string
+                    example: Rossi
+                  email:
+                    type: string
+                    example: mario.rossi@gmail.com
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/add-admin:
+    post:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Add a new admin.
+      description: >-
+        Adds a new admin user to the system. If the email is already registered
+        but unverified, the user's data is updated and a verification email is
+        sent.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: luigi.verdi@gmail.com
+                  description: Email of the new admin.
+                name:
+                  type: string
+                  example: Luigi
+                  description: First name of the new admin.
+                surname:
+                  type: string
+                  example: Verdi
+                  description: Last name of the new admin.
+              required:
+                - email
+                - name
+                - surname
+      responses:
+        '200':
+          description: >-
+            Admin added successfully. A verification email is sent to the new
+            admin.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'An email was sent to the email address: luigi.verdi@gmail.com'
+        '400':
+          description: >-
+            Bad request. The email is already registered or an error occurred
+            during the process.
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error.
+  /user/admin/get-pois:
+    get:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: >-
+        Returns the complete list of POIs along with detailed information such
+        as names, descriptions, scores, visit durations, and external links.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: A list of POIs with detailed information.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                      description: POI id
+                    name:
+                      type: string
+                      example: Sanctuary of the Madonna del Transito of Canoscio
+                      description: Name of the POI in English.
+                    nome:
+                      type: string
+                      example: Santuario della Madonna del Transito di Canoscio
+                      description: Name of the POI in Italian.
+                    description:
+                      type: string
+                      example: A historic sanctuary located in Città di Castello.
+                      description: Description of the POI in English.
+                    descrizione:
+                      type: string
+                      example: Un santuario storico situato a Città di Castello.
+                      description: Description of the POI in Italian.
+                    url_primary:
+                      type: string
+                      example: https://www.santuariocanoscio.it/
+                      description: Primary URL of the POI.
+                    wiki_url:
+                      type: string
+                      example: >-
+                        https://it.wikipedia.org/wiki/Santuario_della_Madonna_del_Transito
+                      description: Wiki URL of the POI.
+                    latitude:
+                      type: number
+                      format: float
+                      example: 43.4578
+                      description: Latitude of the POI.
+                    longitude:
+                      type: number
+                      format: float
+                      example: 12.2367
+                      description: Longitude of the POI.
+                    scores:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                            example: 1
+                            description: TOI id
+                          name:
+                            type: string
+                            example: Cultural Significance
+                            description: Name of the TOI (Topic of Interest) in English.
+                          nome:
+                            type: string
+                            example: Significato Culturale
+                            description: Name of the TOI in Italian.
+                          score:
+                            type: number
+                            example: 0.5
+                            description: Score associated with the TOI.
+                    visit_min_durations:
+                      type: array
+                      items:
+                        type: integer
+                        example: 30
+                        description: >-
+                          Suggested minimum visit duration for the POI in
+                          minutes.
+                    external_links:
+                      type: array
+                      items:
+                        type: string
+                        example: https://www.visitumbria.com
+                        description: External links related to the POI.
+                    has_score_changed:
+                      type: boolead
+                      example: false
+                      description: >-
+                        indicates whether the scores have been modified by the
+                        administrator or not. It is used for automatic
+                        recalculation of the scores or not
+        '400':
+          description: Bad Request. The query failed to execute due to a client error.
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/add-poi:
+    post:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Add a new POI.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Topic to add
+              properties:
+                name:
+                  type: string
+                  example: Sanctuary of the Madonna del Transito of Canoscio
+                  description: Name of the new POI in English
+                nome:
+                  type: string
+                  example: Santuario della Madonna del Transito di Canoscio
+                  description: Name of the new POI in Italian
+                description:
+                  type: string
+                  example: >-
+                    In the Diocese and municipality of Città di Castello (PG),
+                    only about 10 km from the city center, there is the Colle di
+                    Canoscio on which the Queen Assumed into Heaven reigns in
+                    her Temple dedicated to Her. This is the Basilica-Sanctuary
+                    of the “Madonna del Transito” built in the second half of
+                    the 19th century. It is a place where the body and spirit
+                    are restored, but more than 700 years ago it began its
+                    history in a small Majesty, naturally destined to last for a
+                    short time; and instead it has stretched out over the
+                    centuries, to testify to Mary s love for her children and of
+                    these, for a long series of generations, for their dear
+                    Mother. The Holy Virgin is therefore very happy to welcome
+                    souls in need of help, in need of the caresses of the
+                    sweetest of mothers, to bestow her infinite and most
+                    precious graces for the greatest glory of God and the
+                    salvation of us all.
+                  description: Description of the POI in English
+                descrizione:
+                  type: string
+                  example: >-
+                    Nella Diocesi e comune di Città di Castello (PG), a soli 10
+                    Km circa dal centro urbano, vi è il Colle di Canoscio sul
+                    quale regna la Regina Assunta in Cielo nel suo Tempio a Lei
+                    dedicato. Si tratta della Basilica-Santuario della “Madonna
+                    del Transito” sorta nella seconda metà del 1800. E’ un luogo
+                    in cui si ritempra il corpo e lo spirito che però ben più di
+                    700 anni fa iniziava la sua storia in una piccola Maestà,
+                    naturalmente destinata a durare per breve tempo; ed invece
+                    si è allungata nei secoli, per testimoniare l’amore di Maria
+                    verso i suoi figli e di questi, per una lunga serie di
+                    generazioni, verso la loro cara Madre. E’ quindi ben lieta,
+                    la Vergine Santa, di accogliere anime bisognose di aiuto,
+                    bisognose delle carezze della più dolce delle madri, di
+                    elargire le sue infinite e preziosissime grazie per la
+                    massima gloria di Dio e la salvezza di tutti noi.
+                  description: Description of the POI in Italian
+                url_primary:
+                  type: string
+                  example: https://www.santuariocanoscio.it/
+                  description: Primary URL of the POI
+                wiki_url:
+                  type: string
+                  example: >-
+                    https://it.wikipedia.org/wiki/Santuario_della_Madonna_del_Transito
+                  description: Wiki URL of the POI
+                latitude:
+                  type: number
+                  example: 43.4578
+                  description: Latitude of the POI
+                longitude:
+                  type: number
+                  example: 12.2367
+                  description: Longitude of the POI
+                external_links:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - https://www.visitumbria.com
+                    - https://www.tripadvisor.com
+                  description: External links related to the POI
+                visit_min_durations:
+                  type: array
+                  items:
+                    type: number
+                  example:
+                    - 30
+                    - 60
+                  description: Suggested minimum visit durations for the POI in minutes
+              required:
+                - name
+                - nome
+                - description
+                - descrizione
+                - latitude
+                - longitude
+      responses:
+        '200':
+          description: >-
+            Success message in English or Italian, depending on the language
+            chosen by the user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Added TOI correctly
+        '400':
+          description: Error
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/delete-poi/{id}:
+    delete:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Remove POI from system.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+        - name: id
+          in: path
+          description: POI id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          type: string
+          example: Deleted POI correctly
+          description: Removal success message based on user's chosen language
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/update-poi:
+    put:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Update a POI.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Topic to add
+              properties:
+                name:
+                  type: string
+                  example: Sanctuary of the Madonna del Transito of Canoscio
+                  description: Name of the new POI in English
+                nome:
+                  type: string
+                  example: Santuario della Madonna del Transito di Canoscio
+                  description: Name of the new POI in Italian
+                description:
+                  type: string
+                  example: >-
+                    In the Diocese and municipality of Città di Castello (PG),
+                    only about 10 km from the city center, there is the Colle di
+                    Canoscio on which the Queen Assumed into Heaven reigns in
+                    her Temple dedicated to Her. This is the Basilica-Sanctuary
+                    of the “Madonna del Transito” built in the second half of
+                    the 19th century. It is a place where the body and spirit
+                    are restored, but more than 700 years ago it began its
+                    history in a small Majesty, naturally destined to last for a
+                    short time; and instead it has stretched out over the
+                    centuries, to testify to Mary s love for her children and of
+                    these, for a long series of generations, for their dear
+                    Mother. The Holy Virgin is therefore very happy to welcome
+                    souls in need of help, in need of the caresses of the
+                    sweetest of mothers, to bestow her infinite and most
+                    precious graces for the greatest glory of God and the
+                    salvation of us all.
+                  description: Description of the POI in English
+                descrizione:
+                  type: string
+                  example: >-
+                    Nella Diocesi e comune di Città di Castello (PG), a soli 10
+                    Km circa dal centro urbano, vi è il Colle di Canoscio sul
+                    quale regna la Regina Assunta in Cielo nel suo Tempio a Lei
+                    dedicato. Si tratta della Basilica-Santuario della “Madonna
+                    del Transito” sorta nella seconda metà del 1800. E’ un luogo
+                    in cui si ritempra il corpo e lo spirito che però ben più di
+                    700 anni fa iniziava la sua storia in una piccola Maestà,
+                    naturalmente destinata a durare per breve tempo; ed invece
+                    si è allungata nei secoli, per testimoniare l’amore di Maria
+                    verso i suoi figli e di questi, per una lunga serie di
+                    generazioni, verso la loro cara Madre. E’ quindi ben lieta,
+                    la Vergine Santa, di accogliere anime bisognose di aiuto,
+                    bisognose delle carezze della più dolce delle madri, di
+                    elargire le sue infinite e preziosissime grazie per la
+                    massima gloria di Dio e la salvezza di tutti noi.
+                  description: Description of the POI in Italian
+                url_primary:
+                  type: string
+                  example: https://www.santuariocanoscio.it/
+                  description: Primary URL of the POI
+                wiki_url:
+                  type: string
+                  example: >-
+                    https://it.wikipedia.org/wiki/Santuario_della_Madonna_del_Transito
+                  description: Wiki URL of the POI
+                latitude:
+                  type: number
+                  example: 43.4578
+                  description: Latitude of the POI
+                longitude:
+                  type: number
+                  example: 12.2367
+                  description: Longitude of the POI
+                external_links:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - https://www.visitumbria.com
+                    - https://www.tripadvisor.com
+                  description: External links related to the POI
+                visit_min_durations:
+                  type: array
+                  items:
+                    type: number
+                  example:
+                    - 30
+                    - 60
+                  description: Suggested minimum visit durations for the POI in minutes
+                has_score_changed:
+                  type: boolead
+                  example: false
+                required:
+                  - name
+                  - nome
+                  - description
+                  - descrizione
+      responses:
+        '200':
+          description: >-
+            Success message in English or Italian, depending on the language
+            chosen by the user
+          type: string
+          example: Updated TOI correctly
+        '400':
+          description: Error
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/get-all-tois:
+    get:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: >-
+        Returns the complete list of all TOIs, even those whose score has not
+        yet been associated with the POIs
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: List of TOIs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                      description: TOI id
+                    name:
+                      type: string
+                      example: Landscape
+                      description: TOI name in English
+                    nome:
+                      type: string
+                      example: Paesaggio
+                      description: TOI name in Italian
+                    description:
+                      type: string
+                      example: >-
+                        nature natural water mountain river villages park lake
+                        landscape city wildlife springs waterfalls valley hill
+                        bay skyline gardens
+                      description: List of words related to the TOI in English
+                    descrizione:
+                      type: string
+                      example: >-
+                        nature natural water mountain river villages park lake
+                        landscape city wildlife springs waterfalls valley hill
+                        bay skyline gardens
+                      description: List of words related to the TOI in Italian
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/add-toi:
+    post:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Add a new TOI.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Topic to add
+              properties:
+                name:
+                  type: string
+                  example: Nature
+                  description: New topic name in english
+                nome:
+                  type: string
+                  example: Natura
+                  description: Name of the new topic in Italian
+                description:
+                  type: string
+                  example: >-
+                    tree mountain see river sky forest plant seed leaf animal
+                    bird fish sun wind cloud rain
+                  description: List of words related to the topic in English
+                descrizione:
+                  type: string
+                  example: >-
+                    albero montagna vedere fiume cielo foresta pianta seme
+                    foglia animale uccello pesce sole vento nuvola pioggia
+                  description: List of words related to the topic in Italian
+                color:
+                  type: string
+                  example: '#000'
+                  description: Color associated with TOI
+              required:
+                - name
+                - nome
+                - description
+                - descrizione
+                - color
+      responses:
+        '200':
+          description: >-
+            Success message in English or Italian, depending on the language
+            chosen by the user
+          type: string
+          example: Added TOI correctly
+        '400':
+          description: Error
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/update-toi:
+    put:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Update a TOI.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Topic to update
+              properties:
+                id:
+                  type: number
+                  example: 1
+                  description: TOI id
+                name:
+                  type: string
+                  example: Landscape
+                  description: Topic name updated in English
+                nome:
+                  type: string
+                  example: Paesaggio
+                  description: Topic name updated in Italian
+                description:
+                  type: string
+                  example: >-
+                    tree mountain see river sky forest plant seed leaf animal
+                    bird fish sun wind cloud rain
+                  description: Updated list of words related to the topic in English
+                descrizione:
+                  type: string
+                  example: >-
+                    albero montagna vedere fiume cielo foresta pianta seme
+                    foglia animale uccello pesce sole vento nuvola pioggia
+                  description: Updated list of words related to the topic in Italian
+                color:
+                  type: string
+                  example: '#000'
+                  description: Color associated with TOI
+              required:
+                - name
+                - nome
+                - description
+                - descrizione
+                - color
+      responses:
+        '200':
+          description: >-
+            Success message in English or Italian, depending on the language
+            chosen by the user
+          type: string
+          example: Updated TOI correctly
+        '400':
+          description: Error
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/admin/delete-toi/{id}:
+    delete:
+      tags:
+        - Admin
+      security:
+        - BearerAuth: []
+      summary: Remove TOI from system.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+        - name: id
+          in: path
+          description: POI id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          type: string
+          example: Deleted TOI correctly
+          description: Removal success message based on user's chosen language
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/get-tourist-info:
+    get:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Returns info about user.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: Returns info about user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Mario
+                  surname:
+                    type: string
+                    example: Rossi
+                  email:
+                    type: string
+                    example: mario.rossi@gmail.com
+                  date_of_birth:
+                    type: string
+                    example: ''
+                  gender:
+                    type: string
+                    example: Male
+                  country:
+                    type: string
+                    example: Italy
+                  region:
+                    type: string
+                    example: Europe
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/save-itinerary-score:
+    post:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Save the score of a new itinerary
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Itinerary to save
+              properties:
+                id:
+                  type: number (int)
+                  example: null
+                  description: >-
+                    id of the itinerary, null if the itinerary is not present in
+                    the database
+                lat_start:
+                  type: number (float)
+                  example: 43.11203539290401
+                  description: >-
+                    latitude of the custom starting point, null if starting
+                    point is a municipality
+                long_start:
+                  type: number (float)
+                  example: 12.388962521256484
+                  description: >-
+                    longitude of the custom starting point, null if starting
+                    point is a municipality
+                score:
+                  type: number
+                  example: 5
+                  minimum: 0
+                  maximum: 5
+                total_duration:
+                  type: integer
+                  example: 300
+                transport_mean:
+                  type: string
+                  example: driving-car
+                steps:
+                  type: array
+                  description: >-
+                    The first and last step of each day refers to the starting
+                    point
+                  items:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                        example: 0
+                      order_step:
+                        type: integer
+                        example: 0
+                        description: >-
+                          when order_step = 0 (or order_step = steps.length -1)
+                          it means that it is the start point
+                      id_geo:
+                        type: integer
+                        example: 0
+                        description: >-
+                          if id_geo = 0 it means that the starter point is a
+                          custom position, only the first and the latest step
+                          can have id_geo = 0
+                      t_end:
+                        type: number
+                        description: >-
+                          sum of t_end value of the previous step, travel time
+                          from the previous step, visit time of the current
+                          step.
+                        example: 60
+                      t_visit_min:
+                        type: number
+                        example: 30
+              required:
+                - score
+                - total_duration
+                - transport_mean
+                - steps
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: integer
+                description: itinerary id
+                example: 1
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/save-itinerary-as-favorite:
+    post:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Save a new itinerary as favorite.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Itinerary to save
+              properties:
+                id:
+                  type: number (int)
+                  example: null
+                  description: >-
+                    id of the itinerary, null if the itinerary is not present in
+                    the database
+                lat_start:
+                  type: number (float)
+                  example: 43.11203539290401
+                  description: >-
+                    latitude of the custom starting point, null if starting
+                    point is a municipality
+                long_start:
+                  type: number (float)
+                  example: 12.388962521256484
+                  description: >-
+                    longitude of the custom starting point, null if starting
+                    point is a municipality
+                name:
+                  type: string
+                  example: Perugia
+                description:
+                  type: string
+                  example: Viaggio a Perugia
+                total_duration:
+                  type: integer
+                  example: 300
+                transport_mean:
+                  type: string
+                  example: driving-car
+                steps:
+                  type: array
+                  description: >-
+                    The first and the last step of each day refers to the
+                    starting point
+                  items:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                        example: 0
+                      order_step:
+                        type: integer
+                        example: 0
+                        description: >-
+                          when order_step = 0 (or order_step = steps.length -1)
+                          it means that it is the start point
+                      id_geo:
+                        type: integer
+                        example: 0
+                        description: >-
+                          if id_geo = 0 it means that the starter point is a
+                          custom position, only the first and the latest step
+                          can have id_geo = 0
+                      t_end:
+                        type: number
+                        description: >-
+                          sum of t_end value of the previous step, travel time
+                          from the previous step, visit time of the current
+                          step.
+                        example: 60
+                      t_visit_min:
+                        type: number
+                        example: 30
+              required:
+                - name
+                - description
+                - total_duration
+                - transport_mean
+                - steps
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: integer
+                description: itinerary id
+                example: 1
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/remove-itinerary-from-favorites/{id}:
+    delete:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Remove the itinerary from favorites.
+      parameters:
+        - name: id
+          in: path
+          description: itinerary id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Itinerary removed from favorites.
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 5
+                description: >-
+                  id of the itinerary. If the itinerary was previously evaluated
+                  then the id remains the same, otherwise the itinerary is
+                  definitively deleted from the database so the id becomes null.
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/remove-rating-from-itinerary/{id}:
+    delete:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: >-
+        Removes the rating from the itinerary. If the itinerary is not among the
+        favourites, it is completely removed from the system.
+      parameters:
+        - name: id
+          in: path
+          description: itinerary id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Rating from the itinerary removed.
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 5
+                description: >-
+                  id of the itinerary. If the itinerary was previously saved ad
+                  favorite then the id remains the same, otherwise the itinerary
+                  is definitively deleted from the database so the id becomes
+                  null.
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/update-itinerary-score:
+    put:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Updates the user's score of the itinerary.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Info to update the itinerary (id and new score value)
+              properties:
+                id:
+                  type: integer
+                  description: itinerary id
+                  example: 1
+                score:
+                  type: number
+                  example: 3
+                  minimum: 0
+                  maximum: 5
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Itinerary successfully updated
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/update-itinerary-info:
+    put:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Updates name and description of the itinerary.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: >-
+                Info to update the itinerary (id and updated Name and
+                Description for the itinerary)
+              properties:
+                id:
+                  type: integer
+                  description: itinerary id
+                  example: 1
+                name:
+                  type: string
+                  example: Terni
+                description:
+                  type: string
+                  example: Itinerario enogastronomico a Terni
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Itinerary successfully updated
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/get-favorite-itineraries:
+    get:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Returns the user's favorite itineraries
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: Returns the user's favorite itineraries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Gubbio
+                    description:
+                      type: string
+                      example: Un giorno a Gubbio
+                    total_duration:
+                      type: number
+                      example: 90
+                    transport_mean:
+                      type: string
+                      example: driving-car
+                    score:
+                      type: number
+                      example: 5
+                    steps:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id_geo:
+                            type: integer
+                            example: 1
+                          day:
+                            type: integer
+                            example: 1
+                          order_step:
+                            type: integer
+                            example: 1
+                          t_visit_min:
+                            type: number
+                            example: 30
+                          t_end:
+                            type: number
+                            example: 50
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/get-rated-itineraries:
+    get:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Returns the itineraries not saved as favorites by the user but rated.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: >-
+            Returns the itineraries not saved as favorites by the user but
+            rated.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    total_duration:
+                      type: number
+                      example: 90
+                    transport_mean:
+                      type: string
+                      example: driving-car
+                    score:
+                      type: number
+                      example: 5
+                    steps:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id_geo:
+                            type: integer
+                            example: 1
+                          day:
+                            type: integer
+                            example: 1
+                          order_step:
+                            type: integer
+                            example: 1
+                          t_visit_min:
+                            type: number
+                            example: 30
+                          t_end:
+                            type: number
+                            example: 50
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/get-itinerary-starter-point-info/{id_start}:
+    get:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Returns info about itinerary starter point.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+        - name: id_start
+          in: path
+          description: starter point id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Returns info about itinerary starter point.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  latitude:
+                    type: number (float)
+                    example: 43.11203539290401
+                    description: >-
+                      latitude of the custom starting point, null if starting
+                      point is a municipality
+                  longitude:
+                    type: number (float)
+                    example: 12.388962521256484
+                    description: >-
+                      longitude of the custom starting point, null if starting
+                      point is a municipality
+                  name:
+                    type: string
+                    example: Perugia
+                    description: >-
+                      name of municipality or null if it is a custom starter
+                      point
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/update-poi-score:
+    put:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Updates the user's score of the POI.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Info to update the POI score
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                  description: POI id
+                score:
+                  type: number
+                  example: 3
+                  minimum: 0
+                  maximum: 5
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: POI score successfully updated
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/save-toi-preferences:
+    post:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Save/update the user preferences on different topics.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              description: array of TOIs preferences.
+              items:
+                type: object
+                properties:
+                  id_toi:
+                    type: integer
+                    example: 1
+                  preference_score:
+                    type: number
+                    example: 5
+                    minimum: 0
+                    maximum: 5
+              example:
+                - id_toi: 1
+                  preference_score: 0
+                - id_toi: 2
+                  preference_score: 0
+                - id_toi: 3
+                  preference_score: 5
+                - id_toi: 4
+                  preference_score: 0
+                - id_toi: 5
+                  preference_score: 0
+                - id_toi: 6
+                  preference_score: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Preferences successfully saved
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/auth-tourist/get-user-toi-preference:
+    get:
+      tags:
+        - Auth tourist
+      security:
+        - BearerAuth: []
+      summary: Returns the user's preferences with respect to the different topics.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: Returns the list of user's preferences.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: paesaggio
+                    score_preference:
+                      type: number
+                      example: 0
+                example:
+                  - name: paesaggio
+                    score_preference: 0
+                  - name: cultura
+                    score_preference: 0
+                  - name: religione
+                    score_preference: 0
+                  - name: sport
+                    score_preference: 0
+                  - name: enogastronomia
+                    score_preference: 0
+                  - name: manifattura
+                    score_preference: 0
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/change-password:
+    put:
+      tags:
+        - Auth user
+      security:
+        - BearerAuth: []
+      summary: Used to change the password
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currentPwd:
+                  type: string
+                  description: Current password
+                  example: '#Password1'
+                newPwd:
+                  type: string
+                  description: New password
+                  example: '#Password2'
+      responses:
+        '200':
+          description: Password successfully updated!
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: >-
+            Invalid data provided, The entered current password is wrong.
+            Returns the message 'The entered current password is wrong.'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/change-personal-info:
+    put:
+      tags:
+        - Auth user
+      security:
+        - BearerAuth: []
+      summary: Used to change the user's personal information
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                info:
+                  type: object
+                  description: Updated information
+                  properties:
+                    name:
+                      type: string
+                      description: Updated name
+                      example: Mario
+                    surname:
+                      type: string
+                      description: Updated surname
+                      example: Rossi
+                    country:
+                      type: string
+                      description: Updated country
+                      example: Italy
+                    region:
+                      type: string
+                      description: Updated region
+                      example: Europe
+                    gender:
+                      type: string
+                      description: Updated gender
+                      example: Male
+                    date_of_birth:
+                      type: string
+                      description: Updated date of birth, the format must be YYYY-MM-GG
+                      example: '1970-09-01'
+      responses:
+        '200':
+          description: User information updated successfully!
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/send-email-recover-password:
+    post:
+      tags:
+        - No-auth
+      summary: Used to send an email containing the password recovery token.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Email of the user to send the link to.
+                  example: mario.rossi@gmail.com
+      responses:
+        '200':
+          description: >-
+            An email was sent to your email address. Click on the link to
+            proceed with password recovery!
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/recover-password:
+    put:
+      tags:
+        - No-auth
+      summary: Used for password recovery
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: >-
+                    Token generated for the user to recover the password. It is
+                    obtained through send-email-recover-password
+                password:
+                  type: string
+                  description: New password
+                  example: '#Password1'
+      responses:
+        '200':
+          description: Password updated correctly
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: The password recovery link has expired. Try again!
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - No-auth
+      summary: Sign up a new user
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Info about the user
+              properties:
+                name:
+                  type: string
+                  example: Luigi
+                surname:
+                  type: string
+                  example: Verdi
+                email:
+                  type: string
+                  example: luigi.verdi@gmail.com
+                pwd:
+                  type: string
+                  example: '#Password1'
+                pwdConf:
+                  type: string
+                  description: password confirmation
+                  example: '#Password1'
+                region:
+                  type: string
+                  example: Europe
+                country:
+                  type: string
+                  example: Italy
+                gender:
+                  type: string
+                  example: Male
+                date_of_birth:
+                  type: string
+                  example: '1980-01-01'
+      responses:
+        '200':
+          description: >-
+            Success. After registration, an email is sent to the email address
+            entered by the user to verify the same.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: An email was sent to your email address, please check it!
+        '400':
+          description: >-
+            Invalid data provided, the email already exists in the system.
+            Returns the message 'Email already exist! Try to log in'.
+        '500':
+          description: Internal Server Error
+  /user/verify-email/{token}:
+    get:
+      tags:
+        - No-auth
+      summary: Used to verify the email address.
+      parameters:
+        - name: token
+          in: path
+          description: User authentication token
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Successful email verification. Please login
+        '400':
+          description: Invalid token
+        '500':
+          description: Internal Server Error
+  /user/login:
+    post:
+      tags:
+        - No-auth
+      summary: Login
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: user email
+                  example: mario.rossi@gmail.com
+                pwd:
+                  type: string
+                  description: user password
+                  example: '#Password1'
+      responses:
+        '200':
+          description: Returns the authentication token
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized, if email or password is wrong
+        '500':
+          description: Internal Server Error
+  /user/delete-user:
+    delete:
+      tags:
+        - Auth user
+      security:
+        - BearerAuth: []
+      summary: Delete user account.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: User account deleted
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+tags: []

@@ -1,0 +1,24 @@
+<mat-dialog-content>
+    <span mat-dialog-title>{{'itinerary.saved.edit_info'|translate}}</span>
+    <form [formGroup]="form" (ngSubmit)="updateItinerary()">
+        <mat-form-field appearance="fill">
+          <mat-label>{{'itinerary.result.name'|translate}}:</mat-label>
+            <input matInput type="text"   formControlName="name">
+            <mat-error *ngIf="checkValidator.checkValidation('name', form)">
+              {{'signup.required_field_alert'|translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{'itinerary.result.description'|translate}}:</mat-label>
+            <input matInput type="text" formControlName="description">
+            <mat-error *ngIf="checkValidator.checkValidation('description', form)">
+              {{'signup.required_field_alert'|translate}}
+            </mat-error>
+          </mat-form-field>
+          <div  align="center">
+            <button type="submit" [disabled]="!form.valid" mat-button>{{'itinerary.result.save'|translate}}</button>
+          </div>
+    </form>
+   
+</mat-dialog-content>
+

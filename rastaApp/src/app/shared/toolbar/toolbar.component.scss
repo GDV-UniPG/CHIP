@@ -1,0 +1,141 @@
+
+mat-toolbar-row {
+  justify-content: space-between;
+}
+
+img{
+  height: 60px;
+}
+
+.toolbar-icons {
+  display: flex;
+}
+
+
+mat-sidenav-container {
+  height: calc(100% - 64px);
+}
+
+mat-sidenav {
+  opacity: 95%;
+  display: none;
+  width: 40% !important;
+  min-width: max-content !important;
+}
+
+.sidenav-icon {
+  color: rgb(59, 59, 61);
+}
+
+mat-list-item a {
+  text-decoration: none;
+  color: rgb(50, 59, 94);
+}
+
+.sidenav-list mat-list-item a {
+  width: 100%;
+}
+
+mat-list-item a:hover {
+  opacity: 80%;
+}
+
+.sidenav-button {
+  display: none;
+}
+
+.toolbar-list button{
+  font-size: 95%;
+  font-weight: 400;
+}
+
+.list-item {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+}
+
+.animated-button {
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+}
+/*.header-login{
+  display: none;
+}*/
+.animated-button .underline {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 1px;
+  width: 0;
+  background-color: #7d7d7d; /* Cambia colore se necessario */
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+}
+
+.animated-button:hover .underline {
+  width: 100%;
+  left: 0;
+  transform: translateX(0);
+}
+
+
+@media screen and (max-width: 900px) {
+    .sidenav-button, mat-sidenav{
+        display: inline-block !important;
+    }
+    .toolbar-list{
+        display: none;
+    }
+}
+@media screen and (max-width: 600px) {
+  img{
+    height: 40px!important;
+  }
+
+}
+@media screen and (min-width: 900px) {
+    .toolbar-list {
+        display: flex;
+      }
+      .sidenav-button, mat-sidenav{
+        display: none;
+    }
+  }
+
+@media screen and (max-width: 950px) {
+  :host ::ng-deep .toolbar-list .mat-list-item-content{
+        padding: 0 0 0 10px!important;
+      }
+  }
+
+
+@media screen and (max-width: 1150px) {
+    button{
+      padding:0px;
+    }
+}
+
+mat-radio-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+mat-radio-button{
+  padding-left:10px;
+  padding-bottom: 10px;
+}
+
+mat-sidenav a{
+  display: flex;
+  align-items: flex-end;
+}
+mat-sidenav mat-label{
+  margin-left: 10px;
+}

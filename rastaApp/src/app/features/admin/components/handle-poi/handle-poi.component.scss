@@ -1,0 +1,101 @@
+:host {
+    display: flex;
+    justify-content: center;  
+    min-height: 100%;
+    width: 100%;
+}
+#contentDiv{
+    width: 98%;
+    min-height: 100%;
+    background-color: rgb(255,255,255,0.95);
+}
+mat-card{
+    min-width: 1020px;
+    margin:auto;
+   // overflow-x: auto;
+}
+#checkboxDiv{ 
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-items: start;
+}
+
+.table-content{
+    padding-right:10px ;
+}
+
+.mat-column-name{
+    flex: 0 0 10%;
+}
+.mat-column-description{
+    flex: 0 0 25%;
+}
+.mat-column-scores{
+    min-width: 180px;
+    flex: 0 0 15%;
+}
+.mat-column-action {
+    min-width: 75px;
+    flex: 0 0 5%;
+}
+.mat-column-visit_min_durations {
+    flex: 0 0 5%;
+}
+.mat-column-modified {
+    width: 30px!important;
+    flex:0 0 3%;
+    padding-right: 0!important;
+ }
+mat-cell a{
+    width: 100%;
+    white-space: normal; 
+}
+.extLinkList{
+    padding: 0%!important;
+}
+.extLinkList mat-list-item{
+    padding: 0px!important;
+    font-size:inherit;   
+    height: 100%;
+}
+mat-list-item a{
+    width: 100%;
+    white-space: normal; 
+}
+mat-cell.mat-column-description, mat-cell.mat-column-external_links{
+    overflow-y: auto;  
+    flex-wrap: wrap;
+    height:180px; 
+}
+
+mat-cell{
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+    padding: 0 5px;
+}
+mat-cell:first-of-type{
+    padding: 0 5px 0 24px;
+}
+   
+.btn-add-poi{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: end;
+}
+
+mat-row:hover{
+    background-color:rgb(224, 224, 224);
+}
+
+:host ::ng-deep .scoreList .mat-list-item-content{
+    width: 100%!important;
+    padding: 0!important;
+    font-size: small;
+    display: grid;
+    grid-template-columns: 27fr 18fr;
+    gap: 3px;
+}
+.scoreList{
+    height: fit-content!important;
+}

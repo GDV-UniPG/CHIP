@@ -1,0 +1,160 @@
+<div id="contentDiv">
+
+  <div id="graphLateralDiv">
+
+    <div id="graph">
+      <svg style="height: 0;width:0"><defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <ng-container *ngFor="let color of saturatedToiColor; let i = index">
+            <stop [attr.offset]="(i / (saturatedToiColor.length - 1)) * 100 + '%'" [attr.stop-color]="color" />
+          </ng-container>
+        </linearGradient>
+      </defs></svg>
+      
+    </div>
+
+    <div id="lateralDiv">
+      <mat-icon  *ngIf="!geoLayout"(click)=" togglePCACoordinates()" svgIcon="pca_icon" [matTooltip]="isPCALayout ? ( 'admin.visualization.tooltip.switch_fd' | translate ): ( 'admin.visualization.tooltip.switch_PCA' | translate )"></mat-icon>
+
+      <mat-icon (click)="toggleGeoLayout()" [matTooltip]="geoLayout ? (isPCALayout? ('admin.visualization.tooltip.switch_PCA' | translate ) :  ('admin.visualization.tooltip.switch_fd' | translate )): ('admin.visualization.tooltip.switch_geo' | translate )">
+        {{geoLayout ?"bubble_chart":"language"}}
+      </mat-icon>
+
+       <mat-icon (click)="areLabelHidden ? showSelectedLabels() :hideSelectedLabels()"
+        [matTooltip]="areLabelHidden ? ('admin.visualization.tooltip.show_label' | translate ) : ('admin.visualization.tooltip.hide_label' | translate )">
+        {{areLabelHidden ?"speaker_notes":"speaker_notes_off"}}
+      </mat-icon>
+
+      <div>
+        <mat-icon *ngIf="geoLayout" (click)="toggleEdges()" [matTooltip]="areEdgesShowed ? ('admin.visualization.tooltip.hide_links' | translate ): ('admin.visualization.tooltip.show_links' | translate )">
+          {{areEdgesShowed ?"visibility_off":"visibility"}}
+        </mat-icon>
+      </div>
+
+      <mat-icon svgIcon="custom_broom" (click)="deselectAllPois()" matTooltip="{{'admin.visualization.tooltip.uncheck_pois'|translate}}">
+      </mat-icon>
+
+      <mat-icon (click)="resetZoom()" matTooltip="Reset Zoom"> refresh
+      </mat-icon>
+
+      <mat-icon *ngIf="geoLayout && !areLabelHidden && (leftStartIndex>0||rightStartIndex>0)" (click)="showPreviousLabels()" matTooltip="{{'admin.visualization.tooltip.show_prev_labels'|translate}}">expand_less
+      </mat-icon>
+
+      <mat-icon *ngIf="geoLayout && !areLabelHidden &&(leftStartIndex + 30 < leftLabels.length || rightStartIndex + 30 < rightLabels.length)" (click)="showNextLabels()" matTooltip="{{'admin.visualization.tooltip.show_next_labels'|translate}}">expand_more
+      </mat-icon>
+
+      <mat-icon svgIcon="lazzo" (click)="toggleLazo()" [matTooltip]="isLazoEnabled?('admin.visualization.tooltip.disable_lazo' | translate ):('admin.visualization.tooltip.enable_lazo' | translate )"></mat-icon>
+
+      <mat-icon *ngIf="!isPoisInfoRectVisible && clickedNodes!=null" (click)="showPoisInfo()" matTooltip="{{'admin.visualization.tooltip.info_pois'|translate}}">info</mat-icon>
+
+      <mat-slide-toggle color="primary" [matTooltip]="!removeLinksWithSameToi?('admin.visualization.tooltip.remove_links_same_toi' | translate ): ('admin.visualization.tooltip.add_links_same_toi' | translate )" [(ngModel)]="removeLinksWithSameToi" (change)="onRemoveLinksToggleChange($event)">
+      </mat-slide-toggle>
+    </div>
+
+  </div>
+
+  <div id="controlPanelDiv">
+    <h2>{{'admin.visualization.control_panel'|translate}}</h2>
+    <mat-divider></mat-divider>
+    <div id="labelSizeDiv">
+      <mat-label>{{'admin.visualization.label_size'|translate}} {{labelSize}}px</mat-label>
+      <mat-slider id="visualizationLabelSlider" thumbLabel min=4 max=20 step=1 color="primary"
+        [(ngModel)]="labelSize" (change)="updateLabelSize()">
+        <input matSliderThumb>
+      </mat-slider>
+    </div>
+    <mat-divider></mat-divider>
+    <div id="handleLinksDiv" [hidden]="!areEdgesShowed">
+      <mat-label>{{'admin.visualization.degree_similarity'|translate}} {{tresholdLinks}}%</mat-label>
+      <svg id="barChartContainer" width="90%" height="100"></svg>
+      <mat-slider id="visualizationSlider" thumbLabel [min]="tresholdLinksMin" max=100 step=0.1 color="primary"
+        [(ngModel)]="tresholdLinks" (change)="updateLinks()">
+        <input matSliderThumb>
+      </mat-slider>
+    </div>
+    <div id="visibleNodesDiv">
+      <mat-label>{{'admin.visualization.poi_to_see'|translate}}</mat-label>
+      <mat-form-field>
+        <mat-label>TOI</mat-label>
+        <mat-select [(value)]="visibleTOIs" (selectionChange)="onVisibleToiChange($event)" multiple>
+          <mat-select-trigger>
+            {{ getToiName(visibleTOIs[0])|| 'No visible TOI ' }}
+            <span *ngIf="visibleTOIs.length > 1" class="additional-selection">
+              (+{{ visibleTOIs.length - 1 }} {{ visibleTOIs.length === 2 ? 'Other' : 'Others' }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let toi of tois" [value]="toi.id">
+            {{ toi.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-label>Included TOIs in coloring</mat-label>
+        <mat-form-field> 
+          <mat-label>TOI</mat-label>
+          <mat-select [(value)]="visibleColorTOIs" (selectionChange)="onToiColorChange($event)" multiple>
+          <mat-select-trigger>
+            {{ getToiName(visibleColorTOIs[0])|| 'No visible TOI ' }}
+            <span *ngIf="visibleColorTOIs.length > 1" class="additional-selection">
+              (+{{ visibleColorTOIs.length - 1 }} {{ visibleColorTOIs.length === 2 ? 'Other' : 'Others' }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let toi of tois" [value]="toi.id">
+            {{ toi.name }}
+          </mat-option>
+        </mat-select></mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div id="selectToiDiv" *ngIf="areEdgesShowed">
+      <mat-label>{{'admin.visualization.toi_similarity'|translate}}</mat-label>
+      <mat-checkbox *ngFor="let toi of tois;" color="primary"
+              [checked]="toiSelectionForSimilarity[toi.id]" (change)="toiSelectionForSimilarity[toi.id]=$event.checked">
+             {{toi.name}}
+      </mat-checkbox>
+      <button mat-button (click)="computeLinksSimilarity()">{{'admin.visualization.compute_similarity'|translate}}</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div id="searchPoiDiv">
+      <form>
+        <mat-label>{{'admin.visualization.search_poi'|translate}}</mat-label>
+        <mat-form-field>
+          <mat-label>POI</mat-label>
+          <input type="text" matInput [matAutocomplete]="auto" [formControl]="searchControl" placeholder="Search POI">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+            <mat-option *ngFor="let poi of filteredPois" [value]="poi.name"
+              (onSelectionChange)="onPoiSearchSelected(poi)">
+              {{ poi.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon style="cursor:pointer" matSuffix *ngIf="isPoiOnSearchBar()" placeholder="Handle POI" (click)="openHandlePoi()">open_in_new</mat-icon>
+        </mat-form-field>
+      </form>
+
+    </div>
+    <mat-divider></mat-divider>
+    <div id="selectPoiToiDiv">
+      <mat-label>{{'admin.visualization.select_poi'|translate}}</mat-label>
+      <mat-accordion multi>
+        <mat-expansion-panel *ngFor="let toi of tois;let i=index" class="visualizationEP">
+          <mat-expansion-panel-header *ngIf="poiToiMap.get(toi.id)!=undefined">
+            <mat-checkbox class="custom-checkbox"  style="--checkbox-color: {{ saturatedToiColor[i]}}; --checkmark-color: {{saturatedToiColor[i]== '#ffff33' ? '#000' : '#fff'}} "
+             (change)="toggleAllPois(toi.id, $event.checked)"
+              [checked]="toiSelection[toi.id]>0 ||false ">
+            </mat-checkbox>
+            <mat-label> <b>{{ toi.name }}</b> ({{ toiSelection[toi.id]}}/{{poiToiMap.get(toi.id).length }} POIs)</mat-label>
+          </mat-expansion-panel-header>
+          <div class="pois-list">
+            <mat-checkbox *ngFor="let poi of poiToiMap.get(toi.id)" (change)="togglePoi(poi, $event.checked, false)"
+              [checked]="isPoiSelected(poi)" class="custom-checkbox" style="--checkbox-color: {{saturatedToiColor[i]}}; --checkmark-color: {{saturatedToiColor[i]== '#ffff33' ? '#000' : '#fff'}}">
+              {{ poi.name }}
+            </mat-checkbox>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+  </div>
+
+</div>

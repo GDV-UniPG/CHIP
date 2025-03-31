@@ -1,0 +1,62 @@
+
+<div id="contentDiv"><mat-card>
+    <mat-card-content>
+      <div class="btn-add-toi"><button  mat-icon-button  matTooltip="{{'admin.tooltip.add_new'|translate}} TOI" (click)="addToi()"><mat-icon>add</mat-icon></button></div>
+      <div class="table-content">
+      <mat-table [dataSource]="listOfToi" >    
+
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()!=='it'" matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.name'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+          </ng-container>
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()=='it'" matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.name'|translate}}</mat-header-cell>
+            <mat-cell  *matCellDef="let element">{{element.nome}}</mat-cell>
+          </ng-container>
+        
+ 
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()!=='it'" matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.description'|translate}}</mat-header-cell>
+            <mat-cell *matCellDef="let element" >{{element.description}}</mat-cell>
+          </ng-container>
+          <ng-container *ngIf="languageService.getCodeSiteLanguage()=='it'" matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>{{'admin.common.description'|translate}}</mat-header-cell>
+            <mat-cell   *matCellDef="let element" >{{element.descrizione}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="color">
+            <mat-header-cell  *matHeaderCellDef>{{'admin.common.color'|translate}} </mat-header-cell>
+            <mat-cell  *matCellDef="let element" > 
+              <div class="colorDiv" [style.background]="element.color" >
+                </div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <mat-header-cell  *matHeaderCellDef>{{'admin.common.action'|translate}} </mat-header-cell>
+            <mat-cell  *matCellDef="let element" > 
+              <button  (click)="deleteToi(element)"  mat-icon-button><mat-icon  matTooltip="{{'admin.tooltip.delete'|translate}}">close</mat-icon> </button>
+              <button (click)="editToi(element)"  mat-icon-button><mat-icon  matTooltip="{{'admin.tooltip.edit'|translate}}">edit</mat-icon></button>
+            </mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="modified">
+            <mat-header-cell  *matHeaderCellDef></mat-header-cell>
+            <mat-cell  *matCellDef="let element" > 
+             <mat-icon [style.color]="element.has_been_changed ? 'red': 'green'" [matTooltip]="element.has_been_changed ? ('admin.tooltip.has_modified'|translate): ('admin.tooltip.not_modified'|translate)">{{element.has_been_changed ?'cancel':'check_circle'}}</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+       </mat-table>
+       
+      </div> 
+      <mat-paginator   #paginator   [pageSize]="pageSize"  [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+    
+      <div style="width: 100%; text-align: center;"><button mat-stroked-button (click)="startPoiToiComputation()"
+        color="warn">{{'admin.handle_poi.start_poi_toi_comp'|translate}}</button></div>
+    </mat-card-content>
+    </mat-card>
+  </div>

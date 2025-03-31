@@ -1,0 +1,27 @@
+.div-title{
+    display: flex;
+}
+span{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+#div-exit-button{
+    display: inline-block;
+    max-width: min-content;
+}
+mat-form-field, div{
+    width: 100%;
+}
+
+mat-dialog-content{
+    width: 700px;
+    min-height: 100%!important;
+}
+
+@media screen and (max-width:935px){
+    mat-dialog-content{
+        width: 100%!important;
+    }
+}
+

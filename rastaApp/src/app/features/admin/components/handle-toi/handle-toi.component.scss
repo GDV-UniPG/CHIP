@@ -1,0 +1,61 @@
+:host {
+    display: flex;
+    justify-content: center; 
+    min-height: 100%;   
+}
+
+#contentDiv{
+    width: 98%;
+    min-height: 100%;
+    background-color: rgb(255,255,255,0.95);
+    display: flex;
+}
+mat-card{
+    margin:auto;
+    overflow-x: auto;
+}
+
+.table-content{
+    padding-right:10px;
+    min-width: 600px;
+}
+.mat-column-name{
+    flex: 0 0 20%;
+}
+.mat-column-description{
+    flex: 0 0 60%;
+}
+.mat-column-action {
+    min-width: 100px;
+    flex: 0 0 10%;
+}
+.mat-column-color {
+    min-width: 50px;
+    flex: 0 0 5%;
+}
+.mat-column-modified {
+   width: 30px;
+}
+.colorDiv{
+    width: 20%;
+    height: 20%;
+    min-width: 20px;
+    min-height: 20px;
+    margin-left: 10px;
+    border: 1px solid #000;
+}
+mat-cell.mat-column-description{
+    overflow-y: auto;  
+    flex-wrap: wrap;
+    max-height:180px; 
+}
+   
+.btn-add-toi{
+    width: 100%;
+    text-align: end;
+}
+
+mat-row:hover{
+    background-color:rgb(224, 224, 224);
+}
+

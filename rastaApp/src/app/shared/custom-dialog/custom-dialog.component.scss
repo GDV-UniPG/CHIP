@@ -1,0 +1,43 @@
+mat-dialog-actions{
+    padding: 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 52px;
+    align-items: center;
+    box-sizing: content-box;
+    margin-bottom: -24px;
+    justify-content: space-between;
+}
+h2{
+    text-align: center
+}
+
+
+#okDiv{
+    width:100%;
+    display: flex;
+    justify-content:center;
+}
+
+button{
+    
+}
+
+#okButton{
+    background: #5555ffa8;
+    &:hover{
+        background: #5555fffd;
+    }
+}
+#yesButton{
+    background: #ff5555a8;
+    &:hover{
+        background: #ff5555;
+    }
+}
+#noButton{
+    background: #5555ffa8;
+    &:hover{
+        background: #5555fffd;
+    }
+}

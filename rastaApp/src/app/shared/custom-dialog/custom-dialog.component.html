@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+        <p>{{data.content}}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div id="okDiv" >
+        <button id="okButton" *ngIf="data.onButtonNoClick===null && data.onButtonYesClick===null" class="mat-raised-button"(click)="onButtonOkClick()">OK</button>
+    </div>
+    <button id="noButton" *ngIf="data.onButtonYesClick!==null" class="mat-raised-button"  (click)="dialogRef.close()" >{{'custom_dialog.no_button'|translate}}</button>
+    <button id="yesButton" *ngIf="data.onButtonYesClick!==null" class="mat-raised-button"   (click)="onButtonYesClick()">{{'custom_dialog.yes_button'|translate}}</button>
+</mat-dialog-actions>

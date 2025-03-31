@@ -1,0 +1,21 @@
+
+:host {
+  display: flex;
+  justify-content: center;  
+  height: 100%;
+}
+#contentDiv{
+  width: 90%;
+  height: 100%;
+  background-color: rgb(255,255,255,0.9);
+  display: flex;
+}
+ mat-card{
+  padding-top: 5%;
+  min-width: 800px;
+    margin: auto;
+  
+  }
+  mat-form-field{
+    width: 70%;
+  }

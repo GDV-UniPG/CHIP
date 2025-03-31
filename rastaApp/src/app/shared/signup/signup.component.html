@@ -1,0 +1,107 @@
+<mat-card>
+  <mat-card-title>{{ 'signup.title' | translate }}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="signup()">
+      <mat-form-field>
+        <mat-label>{{ 'user_common.name_field' | translate }}: *</mat-label>
+        <input matInput type="text" placeholder="{{'signup.placeholder.name' | translate }}" formControlName="name">
+        <mat-error *ngIf="checkValidator.checkValidation('name', form)">
+          {{ 'signup.required_field_alert' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>{{ 'user_common.surname_field' | translate }}: *</mat-label>
+        <input matInput type="text" placeholder="{{'signup.placeholder.surname' | translate }}"
+          formControlName="surname">
+        <mat-error *ngIf="checkValidator.checkValidation('surname', form)">
+          {{ 'signup.required_field_alert' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="{{'user_common.placeholder.gender' | translate }}" style="display: none">
+        <mat-label>{{ 'user_common.gender_field' | translate }}: *</mat-label>
+        <div style="text-align: end;">
+          <mat-radio-group formControlName="gender">
+            <mat-radio-button color="primary" value="Male" labelPosition="before">{{'user_common.gender_male' |
+              translate }}</mat-radio-button><br>
+            <mat-radio-button color="primary" value="Female" labelPosition="before">{{'user_common.gender_female' |
+              translate }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-error *ngIf="checkValidator.checkValidation('gender', form)">
+          {{ 'signup.required_field_alert' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>{{ 'user_common.birthday_field' | translate }}: *</mat-label>
+
+        <input type="text" (change)="onDateChange(form, $event)" matInput formControlName="date"
+          [matDatepicker]="picker" [matDatepickerFilter]="dateFilter">
+        <mat-hint>DD/MM/YYYY </mat-hint>
+        <mat-datepicker-toggle matSuffix matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker color="primary"></mat-datepicker>
+
+        <mat-error *ngIf="checkValidator.checkValidation('date', form)">
+          {{ checkValidator.dateErrors(form)}}
+        </mat-error>
+
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>{{ 'user_common.region_field' | translate }}: *</mat-label>
+        <mat-select formControlName="region">
+          <mat-option *ngFor="let region of regions" [value]="region">{{region}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkValidator.checkValidation('region', form)">
+          {{ 'signup.required_field_alert' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>{{ 'user_common.country_field' | translate }}: *</mat-label>
+        <mat-select formControlName="country">
+          <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkValidator.checkValidation('country', form)">
+          {{ 'signup.required_field_alert' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <mat-label>Email: *</mat-label>
+        <input matInput type="email" placeholder="{{'user_common.placeholder.email' | translate }}"
+          formControlName="email">
+        <mat-error *ngIf="checkValidator.checkValidation('email', form)">
+          {{ checkValidator.emailErrors(form) }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Password: *</mat-label>
+        <input (change)="onPasswordChange(form, $event,  'pwd')" matInput [type]='showPwd ? "text" : "password"'
+          placeholder="{{'user_common.placeholder.password' | translate }}" formControlName="pwd">
+        <mat-icon matSuffix (click)="showPwd=!showPwd">{{showPwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="checkValidator.checkValidation('pwd', form)">
+          {{checkValidator.pwdErrors("pwd", form)}}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>{{ 'signup.repeat_pw_field' | translate }}: *</mat-label>
+        <input (change)="onPasswordChange(form, $event, 'pwdConf')" matInput [type]='showPwdConf ? "text" : "password"'
+          placeholder="{{'signup.placeholder.repeat_password' | translate }}" formControlName="pwdConf">
+        <mat-icon matSuffix (click)="showPwdConf=!showPwdConf">{{showPwdConf ? 'visibility_off' :
+          'visibility'}}</mat-icon>
+        <mat-error *ngIf="checkValidator.checkValidation('pwdConf', form)">
+          {{checkValidator.pwdErrors("pwdConf", form)}}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <button type="submit" [disabled]="!form.valid" mat-button>{{ 'signup.confirm' | translate }}</button>
+    </form>
+  </mat-card-content>
+</mat-card>

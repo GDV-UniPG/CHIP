@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+service poiToiScores {
+    rpc getPoiToiScores (Empty) returns (PoiToiScoresList){}
+    rpc getPois (PoiIds) returns (PoiList){}
+}
+
+message PoiIds{
+    repeated int32 poiIds=1;
+    string language=2;
+}
+message Empty {}
+
+message PoiList{
+    repeated Poi pois=1;   
+}
+
+message Poi{
+    int32 id=1;
+    string name =2;
+    string url_primary =3;
+    float longitude =4;
+    float latitude =5;
+    float positive=6;
+    float neutral=7;
+    float negative=8;
+    string image_url=9;
+}
+message PoiToiScoresList{
+    repeated PoiToiScores poi_toi_scores = 1;   
+}
+
+message PoiToiScores{
+    int32 id_poi=1;
+    repeated float scores=2;
+   // repeated ToiScore toi_scores=2;
+}
+/*
+message ToiScore{
+    int32 id_toi = 1;
+    int32 score = 2;
+}*/

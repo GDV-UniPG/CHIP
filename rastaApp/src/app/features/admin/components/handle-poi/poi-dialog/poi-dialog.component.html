@@ -1,0 +1,170 @@
+<mat-dialog-content>
+  <div class="div-title">
+    <span mat-dialog-title>{{translatedDialogAction}} POI </span>
+    <div id="div-exit-button">
+      <button mat-icon-button matTooltip="{{'admin.tooltip.close' | translate}}" (click)="close()">
+        <mat-icon iconPositionEnd>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="dialogAction=='add'" align="center">
+    <button style="margin-bottom: 10px;" mat-raised-button (click)="toggleMap()">{{mapButtonText }}</button>
+
+    <app-map *ngIf="showMap" [selectedPoi]="null" [pois]="null" [user]="'admin'" (lat)=setLatitude($event)
+      (long)=setLongitude($event) (name)=setName($event)>
+
+    </app-map>
+    <br>
+  </div>
+  <div id="POIimage" style="position: relative; width: 100%; text-align: right;">
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileInput.click()" [matTooltip]="(dialogAction != 'add' && poi.image_url) ? ('admin.handle_poi.replace_image'| translate): ('admin.handle_poi.upload_image'| translate)" 
+      [ngClass]="(dialogAction != 'add' && poi.image_url) || selectedImage ? 'above-image': 'centered-button'">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    <div *ngIf="(dialogAction != 'add' && poi.image_url) || selectedImage" align="center">
+      <img  [src]="getCacheBustedUrl(imagePreview)" alt="Current Image"   style="width: 100%; height: auto;">
+    </div>
+    <input #fileInput type="file" style="display: none;" accept="image/*" (change)="onImageSelected($event)">
+  </div>
+  <form [formGroup]="form" (ngSubmit)="(dialogAction =='add') ? addPoi() : updatePoi()">
+    <mat-form-field appearance="fill">
+      <mat-label>{{'admin.common.en_name'|translate}}:</mat-label>
+      <input matInput type="text" [placeholder]='(dialogAction=="add")? nameEnPlaceholder :poi.name'
+        formControlName="name">
+      <mat-error *ngIf="checkValidator.checkValidation('name', form)">
+        {{'signup.required_field_alert'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{'admin.common.it_name'|translate}}:</mat-label>
+      <input matInput type="text" [placeholder]='(dialogAction=="add")? nameItPlaceholder :poi.nome'
+        formControlName="nome">
+      <mat-error *ngIf="checkValidator.checkValidation('nome', form)">
+        {{'signup.required_field_alert'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{'admin.common.en_desc'|translate}}:</mat-label>
+      <textarea matInput type="text" [placeholder]='(dialogAction=="add")? descriptionEnPlaceholder: poi.description'
+        formControlName="description"></textarea>
+      <mat-error *ngIf="checkValidator.checkValidation('description', form)">
+        {{'signup.required_field_alert'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{'admin.common.it_desc'|translate}}:</mat-label>
+      <textarea matInput type="text" [placeholder]='(dialogAction=="add")? descriptionItPlaceholder: poi.descrizione'
+        formControlName="descrizione"></textarea>
+      <mat-error *ngIf="checkValidator.checkValidation('descrizione', form)">
+        {{'signup.required_field_alert'|translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label> {{'admin.handle_poi.primary_url'|translate}}:</mat-label>
+      <input matInput type="url" [placeholder]='(dialogAction=="add")? primaryURLPlaceholder :poi.url_primary'
+        formControlName="url_primary">
+      <mat-error *ngIf="checkValidator.checkValidation('url_primary', form)">
+        It is not a correct url
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{'admin.handle_poi.wiki_url'|translate}}:</mat-label>
+      <input matInput type="url" [placeholder]='(dialogAction=="add")? wikiURLPlaceholder  :poi.wiki_url'
+        formControlName="wiki_url">
+      <mat-error *ngIf="checkValidator.checkValidation('wiki_url', form)">
+        It is not a correct url
+      </mat-error>
+    </mat-form-field>
+    <br>
+
+    <div *ngIf="externalLinkIndex > 0" [formGroup]="externalLinkGroup">
+      <mat-form-field appearance="fill" *ngFor='let i of externalLinkIndex_array'>
+        <mat-label>{{'admin.handle_poi.ext_link'|translate}} {{i+1}}:</mat-label>
+        <div class="delete-items">
+          <input type="url" matInput formControlName={{i}}>
+          <button class="delete-button" mat-button type="button" (click)="deleteExternalLink(i)"
+            matTooltip="{{'admin.tooltip.del_ext_link'|translate}}"><mat-icon>close</mat-icon></button>
+        </div>
+      </mat-form-field>
+    </div>
+    <div align="end">
+      <button type="button" (click)="addExternalLink()" mat-raised-button
+        matTooltip="{{'admin.tooltip.add_ext_link'|translate}}">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <br>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>{{'admin.handle_poi.latitude'|translate}}:</mat-label>
+      <input type="number" matInput [placeholder]='(dialogAction=="add")? latitudePlaceholder:poi.latitude.toString()'
+        formControlName="latitude">
+      <mat-error *ngIf="checkValidator.checkValidation('latitude', form)">
+        {{'signup.required_field_alert'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <br>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>{{'admin.handle_poi.longitude'|translate}}:</mat-label>
+      <input type="number" matInput
+        [placeholder]='(dialogAction=="add")? longitudePlaceholder :poi.longitude.toString()'
+        formControlName="longitude">
+      <mat-error *ngIf="checkValidator.checkValidation('longitude', form)">
+        {{'signup.required_field_alert'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <br>
+
+    <br>
+    
+    <div *ngIf="visitDurationsIndex > 0" [formGroup]="durationsGroup">
+      <mat-form-field appearance="fill" *ngFor='let i of visitDurationsIndex_array'>
+        <mat-label>{{'admin.handle_poi.duration'|translate}} (min) {{i+1}}: </mat-label>
+        <div class="delete-items">
+          <input type="number" matInput [placeholder]='(dialogAction=="add")? visitDurPlaceholder : null'
+            formControlName={{i}}>
+          <button class="delete-button" matTooltip="{{'admin.tooltip.del_duration'|translate}}" mat-button
+            *ngIf="visitDurationsIndex > 1" type="button"
+            (click)="deleteVisitDuration(i)"><mat-icon>close</mat-icon></button>
+        </div>
+        <mat-error *ngIf='i===0 && checkValidator.checkValidation("i", durationsGroup)'>
+          This field is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div align="end">
+      <button type="button" (click)="addDuration()" mat-raised-button
+        matTooltip="{{'admin.tooltip.add_duration'|translate}}">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <br>
+
+    <div *ngIf=" dialogAction!='add'" formArrayName="scores">
+      <div style="display: flex; justify-content:space-between">
+        <h2>{{'admin.common.scores'|translate}}</h2>
+        <mat-slide-toggle [checked]="!hashScoreChanged" labelPosition="before" (change)="onScoreChange($event)">
+          {{'admin.common.scores_slide_toggle'|translate}}
+          <i>{{ !hashScoreChanged ? ('admin.common.enabled' | translate) : ('admin.common.disabled' | translate) }}</i>
+        </mat-slide-toggle>
+      </div>
+      <mat-form-field appearance="fill" *ngFor="let scoreGroup of scores.controls;let i = index" [formGroupName]="i">
+        <mat-label *ngIf="languageService.getCodeSiteLanguage() != 'it'">{{scoreGroup.get('name')?.value}}:</mat-label>
+        <mat-label *ngIf="languageService.getCodeSiteLanguage() == 'it'">{{scoreGroup.get('nome')?.value}}:</mat-label>
+        <input type="number" matInput min="0" max="1" step="0.05" formControlName="score"
+          (input)="onScoreInputChange()">
+      </mat-form-field>
+    </div>
+
+    <div align="center">
+      <button *ngIf="dialogAction=='add'" type="submit" [disabled]="!form.valid"
+        mat-button>{{'admin.common.add'|translate}} POI</button>
+      <button *ngIf="dialogAction=='edit'" type="submit" [disabled]="!form.valid"
+        mat-button>{{'admin.common.update'|translate}} POI</button>
+    </div>
+  </form>
+
+</mat-dialog-content>

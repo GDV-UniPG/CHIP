@@ -1,0 +1,146 @@
+mat-list{
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: rgb(255,255,255,0.7);
+}
+
+.sticky-item {
+    position: sticky; 
+    top: -10px; 
+    background-color: rgb(255,255,255); 
+    z-index: 2;
+  }
+
+.inactive-link {
+    pointer-events: none;
+    cursor: default; 
+    color: rgb(55, 55, 55);
+    text-decoration: none; 
+}
+mat-card{
+    box-shadow: none!important;
+}
+
+#title-list{
+    font-weight: 550;
+}
+.item{
+    display: flex!important;
+    justify-content:space-between!important;
+    width: 100%!important;
+    align-items: center;
+}
+mat-label{
+    cursor: pointer;
+}
+mat-icon{
+    color: #3f51b5;;
+}
+.poi-list{
+    display: flex;
+    width: 70%;
+    align-items: center;
+}
+.radio-group{
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+.custom-radio{
+    cursor: pointer;
+}
+mat-list-item{
+    align-content:center ;
+    height: auto!important;
+    min-height: 48px!important;
+}
+
+.emoticonIcon{
+  margin: 0 8px;
+  width: 18px;
+}
+
+@media screen and (max-width: 1300px) {
+    .radio-group{
+        width: 45%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    mat-list-item{
+        font-size: 0.87rem!important;
+    }
+  }
+
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    background-color:  #6375de82;
+    border-radius: 25px;
+    position: relative;
+    padding:5px 0;
+    width: 84px;
+  }
+
+  .toggle-container mat-icon{
+    color:white;
+    width: 16px;
+    height: 16px;
+    font-size: 18px;
+  }
+  
+  .toggle-option {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 1;
+    cursor: pointer;
+  }
+  
+  .toggle-option.active {
+    color: white;
+  }
+  
+  .slider {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-color: #3f51b5d4;
+    border-radius: 50%;
+    transition: left 0.3s ease;
+  }
+  
+  .slider.left {
+    left: 0px;
+  }
+  
+  .slider.center {
+    left: calc(50% - 14px); 
+  }
+  
+  .slider.right {
+    left:calc(100% - 28px);
+  }
+
+  app-sentiment-tooltip {
+    position: absolute; 
+    bottom: 100%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 10;
+    margin-bottom: 5px; 
+    white-space: nowrap; 
+  }
+
+  .icon-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    position: relative; 
+  }
+  

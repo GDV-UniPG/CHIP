@@ -1,0 +1,86 @@
+.map-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    }
+    
+    .map-frame {
+      height: 400px;
+    }
+    
+    #map {
+      height: 100%;
+    }
+
+
+    .radio-group{
+      display: flex;
+      margin-top: 10px;
+      width: 100%;
+      justify-items: center;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-around;
+  }
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      background-color:  #6375de82;
+      border-radius: 25px;
+      position: relative;
+      padding:5px 0;
+      width: 84px;
+    }
+  
+    .toggle-container mat-icon{
+      color:white;
+      width: 16px;
+      height: 16px;
+      font-size: 18px;
+    }
+    
+    .toggle-option {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 1;
+      cursor: pointer;
+    }
+    
+    .toggle-option.active {
+      color: white;
+    }
+    
+    .slider {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      background-color: #3f51b5d4;
+      border-radius: 50%;
+      transition: left 0.3s ease;
+    }
+    
+    .slider.left {
+      left: 0px;
+    }
+    
+    .slider.center {
+      left: calc(50% - 14px); 
+    }
+    
+    .slider.right {
+      left:calc(100% - 28px);
+    }
+
+  #popup{
+    max-width:  100px; 
+  }
+  @media screen and (min-width: 700px) {
+    #popup{
+      min-width:  150px;
+      max-width:   300px; 
+    }
+  }

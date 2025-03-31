@@ -1,0 +1,101 @@
+<div id="contentDiv">
+    <h1 id="mainTitle">{{'home.main_title'|translate}} <img src="assets/logo-chip.png" alt="CHIPLogo"></h1>
+    <div id="welcomeDiv">
+       
+        <div class="titleDiv">
+            <h2> {{'home.main_subtitle'|translate}}</h2>
+            <h3>CHIP (<i>Cultural Heritage Itinerary Planner</i>)
+                {{'home.how_works_desc2'|translate}}</h3>
+        </div>
+        <img src="assets/chipForUmbria.png" alt="RASTALogo">
+    </div>
+    <mat-divider></mat-divider>
+    <div id="itineraryDiv">
+        <h2>{{'home.how_works_subtitle'|translate}}</h2>
+        <h1>{{'home.how_works_title'|translate}}</h1>
+
+        <div class="stepper-container">
+            <button class="navigateButton" mat-icon-button (click)="stepper.selectedIndex =stepper.selectedIndex- 1;"
+                [disabled]="stepper.selectedIndex === 0">
+                <mat-icon>navigate_before</mat-icon> 
+            </button>
+            <div class="hstepper-cont" #stepperContainer>
+            <mat-horizontal-stepper #stepper (selectionChange)="stepChanged($event)" class="stepperHome">
+                <mat-step label="{{'itinerary.preference_step'|translate}}" [completed]="false">
+                    <div class="stepContentDiv">
+                        <img src="assets/preferences.png" alt="TOIPreferences">
+                        <div>
+                            <h3><b>{{'home.step.preferences_title'|translate}}</b></h3>
+                        
+                        <p>{{'home.step.preferences_desc'|translate}}</p>
+                    </div>
+                       
+                    </div>
+                </mat-step>
+
+                <mat-step label="{{'itinerary.ranking_step'|translate}}" [completed]="false">
+                    <div class="stepContentDiv">
+                        <div>
+                            <h3><b>{{'home.step.ranking_title'|translate}}</b></h3>
+                        
+                        <p>{{'home.step.ranking_desc'|translate}}</p>
+                    </div>
+                        <img src="assets/ranking.png" alt="RankingPOI">
+                    </div>
+                </mat-step>
+
+                <mat-step label="{{'itinerary.constraint_step'|translate}}" [completed]="false">
+                    <div class="stepContentDiv">
+                        <img src="assets/constraints.png" alt="Constraints">
+                        <div>
+                            <h3><b>{{'home.step.constraints_title'|translate}}</b></h3>
+                        
+                        <p>{{'home.step.constraints_desc'|translate}}</p>
+                    </div>
+                       
+                    </div>
+                </mat-step>
+
+                <mat-step label="{{'itinerary.result_step'|translate}}" [completed]="false">
+                    <div class="stepContentDiv">
+                        <div>
+                            <h3><b>{{'home.step.itinerary_title'|translate}}</b></h3>
+                        
+                        <p>{{'home.step.itinerary_desc'|translate}}</p>
+                    </div>
+                    <img src="assets/itinerary.png" alt="Constraints">
+                    </div>
+                </mat-step>
+
+                <mat-step label="{{'home.step.start_now_step'|translate}}" [completed]="false">
+                    <div class="stepContentDiv" style="
+                    align-items: center;
+                    justify-content: flex-end;">
+                        <p style="font-weight: 480; margin: 0;">{{'home.step.start_now_desc'|translate}}
+                            <button id="itineraryBtn" mat-icon-button matTooltip='{{"itinerary.saved.not_favorite_createIt" | translate}}' (click)="appUtilService.goLink('itinerary')">
+                                <mat-icon >keyboard_arrow_right</mat-icon>
+                              </button>
+                        </p>
+                        
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+            <button class="navigateButton" mat-icon-button (click)="stepper.selectedIndex =stepper.selectedIndex+ 1;"
+                [disabled]="stepper.selectedIndex==stepper.steps.length - 1">
+                <mat-icon>navigate_next</mat-icon> </button>
+        </div>
+
+    </div>
+    <mat-divider></mat-divider>
+    <div id="projectDiv">
+        <div id="projectContentDiv">
+            <a style="display: flex; justify-content: center;"href="https://rasta.unicampania.it/" target="_blank"><img src="assets/logo-rasta.png" alt="RASTALogo"></a>
+            <div class="titleDiv">
+                <div style="font-size: medium;">{{ 'home.subtitle1' | translate }}<a href="https://rasta.unicampania.it/" target="_blank">{{ 'home.subtitle2' | translate }}</a>{{ 'home.subtitle3' | translate }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

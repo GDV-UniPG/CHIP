@@ -1,0 +1,35 @@
+
+.selected{
+    background-color: #b3bbe2; 
+  }
+
+.form{
+    margin: 20px 0 0 20px;
+}
+mat-form-field{
+  width: 100%;
+}
+
+mat-select {
+  width: 100%;
+}
+mat-card{
+  box-shadow: none!important;
+}
+mat-radio-group{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  max-width: 200px;
+  flex-wrap: wrap;
+  height: 45px;
+  align-items: center;
+}
+
+#transportMeans_div{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  max-width: 200px;
+  flex-wrap: wrap;
+}

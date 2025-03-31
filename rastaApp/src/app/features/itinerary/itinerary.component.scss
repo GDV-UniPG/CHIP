@@ -1,0 +1,17 @@
+mat-vertical-stepper {
+  width: 90%;
+  background-color: rgb(255,255,255,0.95)
+}
+
+
+@media screen and (max-width: 800px) {
+  mat-vertical-stepper {
+    width: 95% !important;
+  }
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+}

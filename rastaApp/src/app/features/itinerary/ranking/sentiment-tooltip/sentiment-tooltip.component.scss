@@ -1,0 +1,76 @@
+.sentiment-bar {
+    height: 10px;
+    width: 100%;
+    background: linear-gradient(to right, 
+              rgb(234, 71, 63), 
+              rgb(249, 204, 80), 
+              rgb(254, 208, 10), 
+              rgb(136, 195, 22), 
+              rgb(19, 141, 5));
+    border-radius: 5px;
+    position: relative; 
+    overflow: hidden; 
+  }
+  .overlay {
+    height: 100%; 
+    background: rgba(255, 255, 255, 0.7); 
+    position: absolute;
+    top: 0; 
+    right: 0; 
+    transition: width 0.3s ease; 
+  }
+  .positiveBar, .negativeBar, .neutralBar{
+    color:white;
+    font-size: smaller;
+    text-align: center;
+  }
+.positiveBar{
+  background-color: green;
+}
+.positive-box{
+  margin-right: 10px;
+  height: 10px;
+  width: 10px;
+  background-color: green;
+}
+.negativeBar{
+  background-color: rgb(254, 7, 7);
+}
+.negative-box{
+  margin-right: 10px;
+  height: 10px;
+  width: 10px;
+  background-color: rgb(254, 7, 7);
+}
+.neutralBar{
+  background-color:rgb(78, 214, 255);
+}
+.neutral-box{
+  margin-right: 10px;
+  height: 10px;
+  width: 10px;
+  background-color:rgb(78, 214, 255);
+}
+
+  #sentimentContainer{
+    border-radius: 5px;
+    display: flex;
+    //width: 30vw;
+    width: 250px;
+    flex-direction: row;
+    align-items: center;
+    font-size: smaller;
+  }
+
+  ul{
+    font-size: smaller;    
+    padding: 0 0 0 15px;
+    position:relative;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin:0
+  }
+  li{
+    display: flex;
+    align-items: center;
+  }

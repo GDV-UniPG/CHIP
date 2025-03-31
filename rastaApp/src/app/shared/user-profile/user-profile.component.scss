@@ -1,0 +1,135 @@
+
+:host {
+    display: flex;
+    justify-content: center;  
+    min-height: 100%;
+}
+mat-card{
+    padding:0;
+    padding-top: 2%;
+    width: 90%;
+    border-radius: 0px;
+    background-color: rgb(255,255,255,0.95);
+    min-height: 100%;
+}
+mat-card-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+mat-list-item{
+    border-bottom: 1px solid #424242;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+form input{
+    text-align: left;
+}
+
+#container{    
+    width: 90%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: center
+}
+#imgDiv{
+    width: 45%;
+    max-width: 200px;
+}
+#personalInfo{
+    align-items: flex-start;
+    width: 70%;
+    text-align: left;
+}
+.button{
+    background-color: rgba(155, 168, 255, 0.316);
+}
+img{
+    width:100%
+}
+.genericContainer{
+    width: 90%;
+    text-align: start;
+}
+
+
+input{
+    width: 40%;
+    text-align: end;
+  }
+mat-radio-group{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+#deleteUserDiv{
+    margin-bottom: 10px;
+    margin-top: 20px;
+    width: 90%;
+    text-align: end;
+}
+#deleteUserDiv button{
+    background-color: rgb(217, 143, 143);
+    font-weight: 500;
+    color:rgb(60, 0, 0)
+}
+
+#dataDiv{
+    width: 40%;
+    display: block;    
+    text-align: right;
+}
+mat-select{
+    width: 40%;
+}
+
+@media screen and (max-width: 800px) {
+    mat-card{
+        width: 95%;
+    }
+    input, mat-select,  #dataDiv{
+        width: 60%;
+    }    
+    #container{
+        flex-direction: column;
+        align-items: center;
+    }
+    #personalInfo{
+        width: 100%;
+    }
+    #imgDiv{
+        width: 40%;
+        max-width: 150px;
+    }
+    #deleteUserDiv{
+        width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 300px) {
+    mat-list-item div{
+       display: flex;
+       flex-direction: column;
+    }
+    input{
+        width: 100%;
+    }
+  }
+
+mat-list-item div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between!important;
+}
+ng-container{
+    display: flex;
+    justify-content: space-between!important;
+   
+}
+

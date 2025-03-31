@@ -1,0 +1,356 @@
+{
+  "toolbar_action": {
+    "home_action_key":"Home page",
+    "new_itinerary_action_key": "Nuovo itinerario",
+    "profile_action_key": "Profilo",
+    "saved_tour_action_key": "Itinerari Salvati",
+    "handle_poi_action_key": "Gestione POI",
+    "handle_toi_action_key": "Gestione TOI",
+    "add_admin_action_key": "Aggiungi amministratore",
+    "show_visualization_action_key": "Visualizzazione"
+  },
+  "toolbar_tooltip": {
+    "language_button": "Modifica la lingua"
+  },
+  "ranking":{
+    "open_page_tooltip":"Vai alla pagina web del POI"
+  },
+  "home":{
+    "main_title":"Benvenuto in ",
+    "how_works_title":"Come funziona?",
+    "how_works_subtitle":"Crea il tuo itinerario in pochi semplici click!",
+    "main_subtitle":"Pianifica il tuo prossimo viaggio in Umbria senza stress!",
+    "how_works_desc2":"ti aiuta a creare itinerari personalizzati in base alle tue preferenze e ad  altri vincoli da te imposti.",
+    "subtitle1":"CHIP è stato sviluppato nell'ambito del ",
+    "subtitle2":"Progetto RASTA",
+    "subtitle3": ": Realtà Aumentata e Story-Telling Automatizzato per la valorizzazione di Beni Culturali ed Itinerari",
+    "step":{  
+      "preferences_title":"Indica i Tuoi interessi e preferenze",
+       "preferences_desc":"Ti appassiona la cultura, lo sport o magari la buona cucina? Facci sapere cosa ami selezionando tra un’ampia varietà di opzioni! In questo modo, potremo proporti i Punti di maggiore Interesse, perfettamente in linea con i tuoi gusti e le tue passioni.",
+      "ranking_title":"Personalizza la Tua Scelta",
+      "ranking_desc":"Dalla classifica dei Punti Di Interesse selezionati appositamente per te in base alle tue preferenze, scegli quelli che ti affascinano e quelli da evitare.",
+      "constraints_title":"Definisci i Dettagli",
+      "constraints_desc":"Indica il Mezzo di Trasporto, il Punto di Partenza e altri Vincoli Temporali. Queste informazioni ci aiuteranno a creare un itinerario su misura, in linea con le tue esigenze.",
+      "itinerary_title":"Esplora le Possibilità di Itinerario",
+      "itinerary_desc":"Visualizza una o più opzioni di itinerario personalizzate. Scegli quella che meglio si adatta ai tuoi gusti e alle tue preferenze per un’esperienza di viaggio unica e indimenticabile!",
+       "start_now_step":"Inizia Subito!",
+      "start_now_desc":"Inizia subito con la creazione del tuo primo Itinerario!"
+    }
+  },
+  "user_common": {
+    "name_field": "Nome",
+    "surname_field": "Cognome",
+    "gender_field": "Sesso",
+    "gender_male": "Maschio",
+    "gender_female": "Femmina",
+    "birthday_field": "Data di nascita",
+    "region_field": "Regione",
+    "country_field": "Paese",
+    "placeholder": {
+      "email": "Inserisci la tua email",
+      "password": "Inserisci la password"
+    }
+  },
+
+  "signup": {
+    "title": "Registrazione",
+    "repeat_pw_field": "Ripeti la password",
+    "required_field_alert": "Questo campo è obbligatorio",
+    "confirm": "Registrati",
+    "placeholder": {
+      "name": "Inserisci il tuo nome",
+      "surname": "Inserisci il tuo cognome",
+      "gender": "Sesso",
+      "repeat_password": "Conferma la password"
+    }
+  },
+
+  "login": {
+    "forgot_pwd_label": "Password dimenticata?",
+    "forgot_pwd_button": "Recupera la password",
+    "signup_label": "Non sei ancora registrato?",
+    "signup_button": "Registrati",
+    "send_email_button": "Invia email",
+    "recover_pwd_title": "Inerisci la tua email"
+  },
+
+  "user_profile": {
+    "title": "Profilo utente",
+    "sub_title_personal_info": "Informazioni personali",
+    "contacts": "Contatti",
+    "toi_pref": "Preferenze TOI",
+    "alert_toi_pref": "Non hai ancora salvato alcuna preferenza, fallo subito!",
+    "saved_tour": "Itinerari salvati",
+    "alert_saved_tour": "Non hai ancora salvato alcun itinerario!",
+    "edit_info_button_text": "Modifica le informazioni personali",
+    "change_password_button_text": "Modifica la password",
+    "save_button_text": "Salva le modifiche",
+    "password": {
+      "actual_password": "Password attuale",
+      "new_password": "Nuova password",
+      "repeat_password": "Conferma la password"
+    },
+    "delete_user_button": "Elimina Account",
+    "delete_dialog_content": "Sei sicuro di voler eliminare l'account?",
+    "tooltip": {
+      "add_preferences": "Aggiungi la tua preferenza per i diversi topic",
+      "update_preferences": "Aggiorna le preferenze per i topic"
+    }
+  },
+
+  "admin": {
+    "common": {
+      "color":"Colore",
+      "en_name": "Nome inglese",
+      "it_name": "Nome italiano",
+      "en_desc": "Descrizione inglese",
+      "it_desc": "Descrizione italiana",
+      "name": "Nome",
+      "description": "Descrizione",
+      "action": "Azione",
+      "add": "Aggiungi il",
+      "update": "Aggiorna il",
+      "scores":"Punteggi TOI",      
+      "scores_slide_toggle": "Ricalcolo automatico dei punteggi:  ",
+      "enabled": "Abilitato",
+      "disabled": "Disabilitato"
+    },
+
+    "action": {
+      "add": "Aggiungi un",
+      "edit": "Modifica il"
+    },
+
+    "tooltip": {
+      "umbriatourism":"Sincronizza i POI con Umbria Tourism",
+      "color":"Colore associato al TOI",
+      "add_new": "Aggiungi un nuovo",
+      "delete": "Elimina",
+      "edit": "Modifica",
+      "close": "Chiudi finestra",
+      "add_duration": "Aggiungi una durata per la visita",
+      "del_duration": "Elimina la durata della visita",
+      "add_ext_link": "Aggiungi un link esterno",
+      "del_ext_link": "Elimina il link esterno",      
+      "has_modified":"Devi avviare la computazione POI-TOI per aggiornare il TOI avendo modificato la sua descrizione",
+       "not_modified": "Il TOI è aggiornato!",
+       "has_poi_modified":"Devi avviare la computazione POI-TOI per aggiornare il POI avendo modificato la sua descrizione",
+       "not_poi_modified": "Il POI è aggiornato!"
+    },
+
+    "placeholder": {
+      "name_it_poi": "Inserisci il nome ITALIANO del POI",
+      "name_en_poi": "Inserisci il nome INGLESE del POI",
+      "description_it_poi": "Aggiungi una descrizione in ITALIANO per il POI",
+      "description_en_poi": "Aggiungi una descrizione in INGLESE per il POI",
+      "name_it_toi": "Inserisci il nome ITALIANO del TOI",
+      "name_en_toi": "Inserisci il nome INGLESE del TOI",
+      "description_it_toi": "Aggiungi una descrizione in ITALIANO per il TOI",
+      "description_en_toi": "Aggiungi una descrizione in INGLESE per il TOI",
+      "primary_url": "Inserisci l'URL primario del POI",
+      "wiki_url": "Inserisci l'URL wiki del POI",
+      "latitude": "Inserisci la latitudine del POI",
+      "longitude": "Inserisci la longitudine del POI",
+      "visit_dur": "Inserisci il tempo necessario per la visita del POI"
+    },
+    "handle_poi": {     
+      "image":"Mostra solo i POI senza immagine",   
+      "primary_url_filter":"Mostra solo i POI senza URL primario", 
+      "has_been_changed":"Mostra solo i POI a cui è stata modificata la descrizione",
+      "has_score_changed":"Mostra solo i POI a cui sono stati modificati manualmente i punteggi",
+      "search_text":"Ricerca POI per nome",
+      "close_map": "Chiudi mappa",
+      "open_map": "Cerca il POI nella mappa",
+      "duration": "Durata",
+      "primary_url": "URL Primario",
+      "wiki_url": "URL Wiki",
+      "latitude": "Latitudine",
+      "longitude": "Longitudine",
+      "vis_dur": "Durata della visita (min)",
+      "ext_links": "Link esterni",
+      "ext_link": "Link esterno",
+      "start_poi_toi_comp": "Inizia la computazione POI-TOI",
+       "delete_toi": "Sei sicuro di voler eliminare il TOI? L'operazione è irreversibile! ",
+      "delete_poi": "Sei sicuro di voler eliminare il POI? L'operazione è irreversibile! ",
+      "replace_image": "Sostituisci l'immagine del POI",
+      "upload_image":"Carica un'immagine del POI"
+    },
+    "add_admin": {
+      "title": "Inserisci le informazioni dell'amministratore",
+      "button": "Conferma"
+    },
+    "visualization":{
+      "control_panel":"Pannello di controllo",
+      "label_size": "Imposta la dimensione delle etichette:",
+      "degree_similarity":"Scegli il grado di similarità tra i POI:",
+      "poi_to_see":"Seleziona i TOI di cui vuoi visualizzare i POI",
+      "toi_similarity":"Seleziona i TOI con cui calcolare la similarità tra i POI",
+      "compute_similarity":"Calcola la similarità",
+      "search_poi":"Cerca un POI specifico",
+      "select_poi":"Seleziona i POI da evidenziare",
+      "tooltip":{
+        "switch_fd":"Passa al Layout Force Directed",
+        "switch_PCA": "Passa al Layout PCA Feature Reduction",
+        "switch_geo": "Passa al Layout Geografico",
+        "show_label": "Mostra le Etichette",
+        "hide_label":"Nascondi le Etichette",
+        "show_links":"Mostra i Link",
+        "hide_links":"Nascondi i Link",
+        "uncheck_pois":"Deseleziona tutti i POI",
+        "show_prev_labels":"Mostra le Etichette precedenti",
+        "show_next_labels":"Mostra le Etichette successive",
+        "enable_lazo":"Abilita la selezione LAZO",
+        "disable_lazo":"Disabilita la selezione LAZO",
+        "info_pois":"Mostra le informazioni dei POI",
+        "remove_links_same_toi":"RImuovi i Link tra POI associati allo stesso TOI",
+        "add_links_same_toi":"Aggiungi i link tra POI associati allo stesso TOI"
+      },
+      "viz_label":{
+        "instructionsTextWithLinks": "Clicca su un POI (nodo) per evidenziare quelli più simili. ",
+        "instructionsTextNoLinks": "Clicca su un POI (nodo) per evidenziarlo",
+        "group_toi":"Clicca per raggruppare per TOI",
+        "poi_sim":"Similarità POI",
+        "zoom_district":"Clicca per ingrandire il distretto"
+      }
+    }
+  },
+
+  "itinerary": {
+    "result_step":"Itinerari",
+    "preference_step": "Preferenze",
+    "ranking_step": "Ranking dei POI",
+    "constraint_step": "Mezzo di trasporto e tempo",
+    "result": {
+      "print_itinerary":"Stampa itinerario",
+      "title_itinerary":"Inserisci il titolo dell'itinerario",
+      "itinerary_name":"Titolo dell'itinerario",
+      "itinerary_confirm":"Conferma",
+      "itinerary_cancel":"Annulla",
+      "visit_duration_poi":"Durata della visita del POI",
+      "init_visit_time":"Tempo di inizio della visita",
+      "end_visit_time":"Tempo di fine della visita",
+      "favorite_tooltip":"Rimuovi l'itinerario dai preferiti",
+      "not_favorite_tooltip":"Aggiungi l'itinerario ai preferiti",
+      "sub_title": "Questi sono gli itinerari che meglio si adattano alle tue preferenze!",
+      "header":"itinerario",
+      "step_tab":"Tappe",
+      "info":"Informazioni POI",
+      "map_tab":"Mappa",
+      "number_day_tab":"Giorno",
+      "save_itinerary":"Salva l'itinerario",
+      "save":"Salva",
+      "name":"Nome",
+      "name_tooltip":"Inserisci un nome per l'itinerario",
+      "description":"Descrizione",
+      "description_tooltip":"Inserici una descrizione per l'itinerario"
+    },
+    "saved":{
+      "open_details_button": "Mostra i dettagli dell'itinerario",
+      "close_details_button": "Chiudi i dettagli dell'itinerario",
+      "number_day":"Numero di giorni",
+      "edit_info":"Modifica le informazioni sull'itinerario",
+      "favorite_delete":"Rimuovi l'itinerario dai preferiti",
+      "not_favorite_delete":"Rimuovi la valutazione dell'itinerario",
+      "favorite_title":"Itinerari preferiti",
+      "rated_not_favorite_title":"Itinerari valutati ma non aggiunti ai preferiti",
+      "favorite_description": "Descrizione",
+      "favorite_name": "Nome",
+      "favorite_not_rated":"Non hai ancora valutato l'itinerario, fallo subito!",
+      "total_duration":"Durata totale",
+      "transport_mean": "Mezzo di trasporto",
+      "score": "Punteggio",
+       "rated_title":"Itinerari solo valutati",
+      "not_favorite_intinerary": "Non hai ancora aggiunto alcun itinerario ai preferiti, crea subito un nuovo itinerario!",
+      "not_favorite_createIt":"Crea un nuovo itinerario",
+      "remove_from_favorite_title":"Sei sicuro di voler eliminare l'itinerario dai preferiti?",
+      "remove_from_favorite_description":"Se l'itinerario non è stato ancora valutato verrà rimosso definitivamente dal sistema, altrimenti verrà spostato tra gli itinerari valutati",
+      "remove_title":"Sei sicuro di voler eliminare l'itinerario?",
+      "remove_description":"L'itinerario verrà rimosso definitivamente dal sistema",
+      "daily_total_duration":"Durata totale dell'itinerario giornaliero ",
+      "total_poi":"Numero totale di POI",
+      "ext_link":"Link esterni"
+    },
+    "preferences": {
+      "sub_title_map":"Scegli il distretto in cui delimitare l'itinerario, se lo desideri!",
+      "sub_title": "Inviaci le tue preferenze per rendere la tua esperienza migliore!",
+      "button": "Invia preferenze",
+      "dialog": {
+        "title": "Salva le preferenze",
+        "content": "Vuoi salvare le preferenze inserite?"
+      }
+    },
+
+    "ranking": {
+       "info_button":"Sì: darà priorità a questo POI per l'inclusione nell'itinerario. Forse: lascerà la scelta all'algoritmo in base alle preferenze generali. No: escluderà questo POI.",
+       "yes_option":"Sì",
+       "not_option":"No",
+       "maybe_option":"Forse",
+       "title_poi":"Punto di Interesse",
+      "title_in_exclude":"Ti interessa?",
+      "sub_title": "Questi sono i POI che più si addicono alle tue preferenze",
+      "button": "Continuiamo!",
+      "remove_from_inclusion":"Rimuovi il POI dagli inclusi",
+      "include_poi":"Includi il POI nell'itinerario",
+      "maybe_poi":"Lascia la scelta all'algoritmo",
+      "remove_from_exclusion": "Rimuovi il POI dagli esclusi",
+      "exclude_poi":"Escludi il POI dall'itinerario"
+
+    },
+
+    "constraints": {
+      "unbounded":"Consigliata da Umbria Tourism",
+      "current_position_error":"Geolocalizzazione non attiva. Prova ad attivarla oppure scegli un punto di partenza differente!", 
+      "n_alternatives":"Numero di itinerari alternativi da mostrare",
+      "current_pos":"La mia posizione",
+      "sub_title": "Inviaci i vincoli che il tour deve soddisfare!",
+      "button": "Invia vincoli",
+      "total_duration": "Durata totale del tour giornaliero",
+      "point_duration": "Durata massima per la visita di ogni punto di interesse",
+      "transport_means": "Mezzo di trasporto",
+      "poi_to_include":"Seleziona i POI che vuoi includere nell'itinerario",
+      "poi_to_exclude":"Seleziona i POI che vuoi escludere dall'itinerario",
+      "number_of_days":"Numero di giorni",
+      "starter_point": "Punto di partenza",
+      "transport_mean":{
+        "car":"Macchina",
+        "foot":"A piedi",
+        "cycle":"In bici"
+      }
+    }
+  },
+  "new_pwd": {
+    "title": "Inserisci la nuova password",
+    "button": "Conferma"
+  },
+  "verify_email": {
+    "title": "Clicca sul pulsante per verificare la tua email",
+    "button": "Verifica email"
+  },
+  "custom_dialog": {
+    "yes_button": "Si",
+    "no_button": "No",
+    "success_title": "SUCCESSO!",
+    "error_title": "ATTENZIONE!"
+  },
+  "validator_strings": {
+    "required_field": "Questo campo è obbligatorio",
+    "not_valid_email_address": "L'indirizzo inserito non è valido",
+    "not_valid_year": "Inserisci un anno valido",
+    "not_valid_month": "Inserisci un mese valido",
+    "not_valid_day": "Inserisci un giorno valido",
+    "not_valid_date": "Inserisci una data valida: GG/MM/YYYY",
+    "min_pwd": "La password deve essere lunga almeno 8 caratteri",
+    "uppercase_pwd": "La password deve contenere almeno una lettera maiuscola",
+    "lowercase_pwd": "La password deve contenere almeno una lettera minuscola",
+    "symbol_pwd": "La password deve contenere almeno un carattere speciale tra @, $, !, %, *, #, ?, &, ^, _, -",
+    "max_pwd": "La password deve essere lunga meno di 30 caratteri",
+    "number_pwd": "La password deve contenere almeno un numero",
+    "not_valid_pwd": "Password non valida",
+    "matching_pwd": "Le due password non corrispondono",
+    "min_toi":"Il punteggio deve essere maggiore di 0",
+    "max_toi":"Il punteggio deve essere minore di 10"
+  },
+  "map":{
+    "search_input_placeholder": "cerca POI"
+  }
+}

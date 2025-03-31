@@ -1,0 +1,217 @@
+<mat-card align="center">
+  <mat-card-title>{{ "user_profile.title" | translate }}</mat-card-title>
+  <mat-card-content>
+    <div id="container">
+      <div id="imgDiv">
+        <img src="assets/user.png" />
+      </div>
+      <div id="personalInfo">
+        <mat-list *ngIf="user">
+          <h3 style="margin: 0px; color: rgba(0, 0, 41, 0.779)">
+            <b><i>{{ "user_profile.sub_title_personal_info" | translate }}</i></b>
+          </h3>
+          <mat-list-item>
+            <div>
+              <mat-label
+                ><b>{{ "user_common.name_field" | translate }}: </b>
+              </mat-label>
+              <mat-label *ngIf="!edit"
+                >{{ user.name }}
+              </mat-label>
+              <input *ngIf="edit" matInput placeholder="{{ user.name }}" [(ngModel)]="user.name" />
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div>
+              <mat-label
+                ><b>{{ "user_common.surname_field" | translate }}: </b>
+              </mat-label>
+              <mat-label *ngIf="!edit"
+                >{{ user.surname }}
+              </mat-label>
+              <input *ngIf="edit" matInput placeholder="{{ user.surname }}" [(ngModel)]="user.surname"/>
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="role == 'tourist'">
+            <div>
+              <mat-label
+                ><b>{{ "user_common.country_field" | translate }}: </b>
+              </mat-label>
+              <mat-label *ngIf="!edit">{{ user.country }} </mat-label>
+              <mat-select  *ngIf="edit" [(ngModel)]='user.country' >
+                <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+              </mat-select>
+    
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="role == 'tourist'">
+            <div>
+              <mat-label
+                ><b>{{ "user_common.region_field" | translate }}: </b>
+              </mat-label>
+              <mat-label *ngIf="!edit">{{ user.region }} </mat-label>
+
+              <mat-select *ngIf="edit" [(ngModel)]='user.region' (valueChange)="updateCountry($event)" >
+                <mat-option *ngFor="let region of regions" [value]="region">{{region}}</mat-option>
+              </mat-select>
+         
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="role == 'tourist'">
+            <div>
+              <mat-label
+                ><b>{{ "user_common.gender_field" | translate }}: </b>
+              </mat-label>
+              <mat-label *ngIf="!edit">{{ user.gender }} </mat-label>
+              <mat-radio-group *ngIf="edit" [(ngModel)]="user.gender">
+                <mat-radio-button color="primary"  value="Male" labelPosition="before">{{'user_common.gender_male' | translate }}</mat-radio-button><br>
+                <mat-radio-button color="primary"  value="Female" labelPosition="before">{{'user_common.gender_female' | translate }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </mat-list-item>
+          <mat-list-item *ngIf="role == 'tourist'">
+            <div style="align-items: center;">
+              <mat-label
+                ><b>{{ "user_common.birthday_field" | translate }}:</b>
+              </mat-label>
+             
+             <mat-label *ngIf="!edit">{{dateOfBirth}} </mat-label>
+              <form [formGroup]="form" id="dataDiv" *ngIf="edit">
+                <mat-form-field>
+                  <input style="width: 100%;" type="text"  (change)="onDateChange(form, $event)" matInput  formControlName="date" [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" />
+                <mat-hint>DD/MM/YYYY </mat-hint>
+                <mat-datepicker-toggle matSuffix matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker  #picker color="primary"></mat-datepicker>
+
+                <mat-error *ngIf="checkValidator.checkValidation('date', form)">
+                  {{checkValidator.dateErrors(form)}}
+                </mat-error>
+              </mat-form-field>
+              </form>
+             
+            </div>
+          </mat-list-item>
+        </mat-list>
+        <div style="width: 100%; text-align: right">
+          <button class="button"  [disabled]="!form.valid && edit && role=='tourist'"
+            style="margin-top: 10px"
+            mat-raised-button
+            (click)="editpersonalInfo()">
+            {{ personalInfoButtonText }}
+          </button>
+          <br><button class="button" class="button" style="margin-top: 10px"  mat-raised-button (click)="toggleChangePassword()">
+          {{ "user_profile.change_password_button_text" | translate }}
+        </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="changePwdOpened" class="genericContainer">
+      <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+        <mat-form-field>
+          <mat-label >{{ "user_profile.password.actual_password" | translate }}
+          </mat-label>
+          <input 
+            matInput
+            [type]="showActualPwd ? 'text' : 'password'"
+            placeholder="{{ 'user_common.placeholder.password' | translate }}"
+            formControlName="actualPwd"/>
+          <mat-icon matSuffix (click)="showActualPwd = !showActualPwd">{{showActualPwd ? "visibility_off" : "visibility"}}</mat-icon>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ "user_profile.password.new_password" | translate }}
+          </mat-label>
+          <input (change)="onPasswordChange(passwordForm, $event,  'pwd')"
+            matInput
+            [type]="showPwd ? 'text' : 'password'"
+            placeholder="{{ 'user_common.placeholder.password' | translate }}"
+            formControlName="pwd"
+          />
+          <mat-icon matSuffix (click)="showPwd = !showPwd">{{
+            showPwd ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error *ngIf="checkValidator.checkValidation('pwd', passwordForm)">
+            {{ checkValidator.pwdErrors("pwd", passwordForm) }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{"user_profile.password.repeat_password" | translate}}</mat-label>
+          <input (change)="onPasswordChange(passwordForm, $event,  'pwdConf')"
+            matInput
+            [type]="showPwdConf ? 'text' : 'password'"
+            placeholder="{{ 'signup.placeholder.repeat_password' | translate }}"
+            formControlName="pwdConf"
+          />
+          <mat-icon matSuffix (click)="showPwdConf = !showPwdConf">{{
+            showPwdConf ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error *ngIf="checkValidator.checkValidation('pwdConf', passwordForm)">
+            {{ checkValidator.pwdErrors("pwdConf", passwordForm) }}
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <button class="button" mat-raised-button type="submit" [disabled]="!passwordForm.valid" >
+            {{ "user_profile.change_password_button_text" | translate }}
+        </button>
+      </form>
+    </div>
+    
+    <br>
+    <div class="genericContainer">
+      <mat-list *ngIf="user">
+        <h3 style="margin: 0px; color: rgba(0, 0, 41, 0.779)">
+          <b
+            ><i>{{ "user_profile.contacts" | translate }}</i></b
+          >
+        </h3>
+        <mat-list-item>
+          <div>
+            <mat-label><b>Email: </b> </mat-label>
+            <mat-label *ngIf="user !== undefined">{{ user.email }} </mat-label>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div *ngIf="role == 'tourist'" class="genericContainer">
+      <mat-list>
+        <h3 style="margin: 0px; color: rgba(0, 0, 41, 0.779)">
+          <b
+            ><i>{{ "user_profile.toi_pref" | translate }}</i></b
+          >
+        </h3>
+        <div *ngIf="user && user.toi_pref!=undefined">
+          <mat-list-item *ngFor="let toi of user.toi_pref">
+            <div>
+              <mat-label *ngIf="user !== undefined"
+                ><b>{{ toi.name }}: </b></mat-label
+              >
+              <mat-label *ngIf="user !== undefined"
+                >{{ toi.score_preference }}
+              </mat-label>
+            </div>
+          </mat-list-item>
+          <div style="width:100%; display: flex; justify-content: flex-end;">
+          <button mat-icon-button matTooltip='{{"user_profile.tooltip.update_preferences" | translate}}'  (click)="openPreferenceToiDialog()">
+            <mat-icon>update</mat-icon>
+          </button>
+        </div>
+        </div>
+        <div *ngIf="user && user.toi_pref == undefined">
+          <mat-list-item>
+            <div>
+              <mat-label>{{
+                "user_profile.alert_toi_pref" | translate
+              }}</mat-label>
+              <button mat-icon-button matTooltip='{{"user_profile.tooltip.add_preferences" | translate}}' (click)="openPreferenceToiDialog()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </mat-list-item>
+        </div>
+      </mat-list>
+    </div>
+    <div id="deleteUserDiv">
+      <button mat-raised-button  (click)="openDeleteDialog()">{{"user_profile.delete_user_button" | translate}}</button>
+    </div>
+  </mat-card-content>
+</mat-card>

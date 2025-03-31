@@ -1,0 +1,99 @@
+.div-title{
+    display: flex;
+}
+span{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+#div-exit-button{
+    display: inline-block;
+    max-width: min-content;
+}
+mat-form-field, div{
+    width: 100%;
+}
+
+.mat-dialog-container{
+    width: 90vw;
+    min-height: 100%!important;
+}
+mat-dialog-content{
+    width: 700px;
+    min-height: 100%!important;
+}
+
+.mat-dialog-container {
+    padding-right: 10px!important;
+} 
+
+@media screen and (max-width:935px){
+    mat-dialog-content{
+        width: 100%!important;
+    }
+}
+
+app-map{
+    width: 100%;
+    height: 400px;
+}
+
+.delete-items{
+    display: flex;
+    align-items: center;
+    
+}
+.delete-button mat-icon{
+    font-size: 18px;
+}
+.delete-button{
+    line-height: normal;
+    min-width: fit-content;
+    padding: 0%;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: #3f51b58c;
+  }
+  
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #3f51b5;
+}
+mat-slide-toggle{
+    margin: 0 10px;
+}
+mat-slide-toggle i{
+    margin-right: 5px;
+}
+
+#fileInput {
+    display: none;
+  }
+  
+  .mat-button-wrapper {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+
+  .upload-btn {
+    position: absolute;
+    z-index: 10;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .centered-button {
+    position: relative;
+    top: 0;
+    right: 0;
+    transform: translateY(0);
+    margin-bottom: 10px;
+  }
+  
+  .above-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transform: translateY(0);
+  }

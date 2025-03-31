@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: User-Profile Matchmaker API
+  version: 1.0.0
+  description: API endpoints for user-profile matchmaker services documented on swagger
+servers:
+  - url: https://mozart.diei.unipg.it/rasta/userprofilematchmaker/
+paths:
+  /send-preferences:
+    post:
+      tags:
+        - POI
+      summary: >-
+        Returns the ranking of the POIs that most closely match the preferences
+        entered by the user.
+      parameters:
+        - in: header
+          name: accept-language
+          description: The user's preferred response language.
+          schema:
+            type: string
+            default: en
+            enum:
+              - en
+              - it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              description: >-
+                The array should contain one element per Topic of Interest (TOI)
+                in the database.
+              items:
+                type: object
+                required:
+                  - id_toi
+                  - preference_score
+                properties:
+                  id_toi:
+                    type: integer
+                    description: The ID of the TOI
+                    example: 1
+                  preference_score:
+                    type: number
+                    minimun: 0
+                    maximum: 5
+                    description: The preference score for the TOI.
+                    example: 3
+              example:
+                - id_toi: 1
+                  preference_score: 0
+                - id_toi: 2
+                  preference_score: 0
+                - id_toi: 3
+                  preference_score: 5
+                - id_toi: 4
+                  preference_score: 0
+                - id_toi: 5
+                  preference_score: 0
+                - id_toi: 6
+                  preference_score: 0
+      responses:
+        '200':
+          description: Returns the ranking of POIs with the associated scores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                      example: 1
+                    name:
+                      type: string
+                      example: Arco Etrusco di Perugia
+                    url_primary:
+                      type: string
+                      example: >-
+                        https://www.umbriatourism.it/it/-/arco-etrusco-di-perugia
+                    longitude:
+                      type: number
+                      example: 12.38963508605957
+                    latitude:
+                      type: number
+                      example: 43.02018356323242
+                    score:
+                      type: number
+                      example: 0.07087106574772951
+                example:
+                  - id: 170
+                    name: The Sanctuary of Merciful and Eucharistic Love
+                    url_primary: ''
+                    longitude: 12.482267379760742
+                    latitude: 42.747108459472656
+                    score: 1
+                  - id: 44
+                    name: The Collegiata Church of Michele Arcangelo
+                    url_primary: >-
+                      https://www.umbriatourism.it/it/-/collegiata-di-san-michele-arcangelo
+                    longitude: 12.099006652832031
+                    latitude: 43.02900314331055
+                    score: 0.9860989919799498
+                  - id: 618
+                    name: Chapel of San Severo - Perugia
+                    url_primary: ''
+                    longitude: 12.392200469970703
+                    latitude: 43.11287307739258
+                    score: 0.9219783326781442
+        '400':
+          description: Invalid data provided
+components: {}
+tags: []

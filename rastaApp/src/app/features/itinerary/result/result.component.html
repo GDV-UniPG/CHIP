@@ -1,0 +1,30 @@
+
+<mat-accordion>
+<div *ngIf="result!==undefined">{{result}}
+        
+    <mat-expansion-panel *ngFor="let itinerary of result; let i=index" [expanded]="i==0">
+        <mat-expansion-panel-header style="height: auto;">
+            <mat-panel-title>
+           
+            {{i+1}}° {{'itinerary.result.header'|translate}}
+
+            <div id="headerDiv" >
+              <button *ngIf="userService.isTouristLoggedIn()"  mat-icon-button (click)="saveItinerary($event, i);  $event.stopPropagation()" > 
+                  <mat-icon iconPositionEnd  [ngClass]="itinerary.favorite ? 'icon-favorite' : 'icon-default'"
+                  matTooltip="{{ itinerary.favorite ? ('itinerary.result.favorite_tooltip'|translate) : 'itinerary.result.not_favorite_tooltip'|translate}}" >{{ itinerary.favorite ? 'favorite' : 'favorite_border' }}</mat-icon> 
+              </button>
+
+              <mat-button-toggle-group *ngIf="userService.isTouristLoggedIn()" name="itineraryScore"  [(ngModel)]="itinerary.score" (click)="saveItineraryScore($event, i); $event.stopPropagation()" >
+                  <mat-button-toggle matTooltip="1" matTooltipPosition="above" value=1><mat-icon  [style.color]="itinerary.score==1 ? 'red' : 'black'" class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==1 ? '1_full' : '1_empty' }}"></mat-icon></mat-button-toggle>
+                  <mat-button-toggle matTooltip="2" matTooltipPosition="above" value=2><mat-icon  [style.color]="itinerary.score==2 ? 'orange' : 'black'" class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==2 ? '2_full' : '2_empty' }}"></mat-icon></mat-button-toggle>
+                  <mat-button-toggle matTooltip="3" matTooltipPosition="above" value=3><mat-icon  [style.color]="itinerary.score==3 ? '#efef2a' : 'black'" class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==3 ? '3_full' : '3_empty' }}"></mat-icon></mat-button-toggle>
+                  <mat-button-toggle matTooltip="4" matTooltipPosition="above" value=4><mat-icon  [style.color]="itinerary.score==4 ? '#74ff3f' : 'black'" class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==4 ? '4_full' : '4_empty' }}"></mat-icon></mat-button-toggle>
+                  <mat-button-toggle matTooltip="5" matTooltipPosition="above" value=5><mat-icon  [style.color]="itinerary.score==5 ? 'green' : 'black'" class="itineraryScoreIcon"  svgIcon="{{ itinerary.score==5 ? '5_full' : '5_empty' }}"></mat-icon></mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-itinerary-details [start_info]="itinerary.start_info" [transportMean]="itinerary.transport_mean"  [steps]="itinerary.steps" [itineraryIndex]="i" ></app-itinerary-details>
+    </mat-expansion-panel>
+</div>
+</mat-accordion>

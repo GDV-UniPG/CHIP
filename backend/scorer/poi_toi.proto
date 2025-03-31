@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package poi_toi;
+
+service PoiToiScorer {
+  rpc CalculateScore(CalculateScoreRequest) returns (CalculateScoreResponse);
+}
+
+message CalculateScoreRequest {
+  string poi_file_path = 1; //link file parquet poi
+  string toi_file_path = 2; //link file parquet toi
+}
+
+message CalculateScoreResponse {
+  string score_file_path = 1;
+}
