@@ -15,6 +15,7 @@ import * as L from 'leaflet';
 import 'leaflet-search';
 import 'leaflet-routing-machine';
 import { openRouteservice } from './lrm-openrouteserviceV2'
+import { SERVER_ADDR } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -192,7 +193,7 @@ export class ItineraryMapComponent implements AfterViewInit, OnInit {
       <div style="text-align:center; min-width: 200px;">
           <h4 align=center><b>${poi.name}</b></h4>`;
       if(poi.image_url!=null){
-        const imageUrl = `https://mozart.diei.unipg.it/rasta/images/images/${poi.id}.jpg`;
+        const imageUrl = SERVER_ADDR+`images/images/${poi.id}.jpg`;
         popupContent += `<img src="${imageUrl}" alt="Image" style="max-height:150px;max-width:100%">`;
       }
       popupContent += `</div>`;
@@ -256,11 +257,11 @@ export class ItineraryMapComponent implements AfterViewInit, OnInit {
     let url;
 
     if (this.transportMean == 'driving-car') {
-      url = "https://mozart.diei.unipg.it/rasta/ors-app/ors/v2/directions"
+      url = SERVER_ADDR+"ors-app/ors/v2/directions"
     } else if (this.transportMean == 'cycling-regular') {
-      url = "https://mozart.diei.unipg.it/rasta/ors-app-bike/ors/v2/directions"
+      url = SERVER_ADDR+"ors-app-bike/ors/v2/directions"
     } else {
-      url = "https://mozart.diei.unipg.it/rasta/ors-app-walking/ors/v2/directions"
+      url = SERVER_ADDR+"ors-app-walking/ors/v2/directions"
     }
 
     const routingControl2 = L.Routing.control({

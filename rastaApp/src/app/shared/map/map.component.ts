@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as L from 'leaflet';
 import 'leaflet-search';
 import { ItineraryService } from 'src/app/features/itinerary/itinerary.service';
-
+import { SERVER_ADDR } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -24,7 +24,7 @@ import { ItineraryService } from 'src/app/features/itinerary/itinerary.service';
 export class MapComponent implements OnInit {
   iconUrl = 'assets/map-icons/marker-icon.png';
   shadowUrl = 'assets/map-icons/marker-shadow.png';
-
+  image_server=SERVER_ADDR+'images/images';
   @Input('pois') pois;
   @Input('selectedPoi') selectedPoi;
   @Input('user') user;
