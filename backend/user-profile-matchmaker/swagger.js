@@ -12,7 +12,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://mozart.diei.unipg.it/rasta/userprofilematchmaker/',
+        url: 'http://localhost:3200/',
       },
     ],
   },

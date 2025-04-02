@@ -25,7 +25,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://mozart.diei.unipg.it/rasta/poitoimanager/',
+        url: 'http://localhost:3000/',
       },
     ]
   }, 

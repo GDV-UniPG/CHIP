@@ -13,7 +13,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
 servers:
-  - url: https://mozart.diei.unipg.it/rasta/poitoimanager/
+  - url: http://localhost:3000/
 paths:
   /get-tois:
     get:
