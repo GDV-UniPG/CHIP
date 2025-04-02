@@ -37,56 +37,13 @@ swagger = Swagger(app,config = {"specs_route": "/api-docs/",
     },
 })
 
-"""app.config['APPLICATION_ROOT'] = '/rasta/routeplanner'
-swagger = Swagger(app,config = {"specs_route": "/api-docs/",
-                                "static_folder": "/rasta/routeplanner/static",
-                                "static_url_path":"/rasta/routeplanner/static",
-                                "specs": [
-                                {
-                                    "endpoint": "apispec_1",
-                                    "route": "/apispec_1.json",
-                                    "rule_filter": lambda rule: True,  # all in
-                                    "model_filter": lambda tag: True,  # all in
-                                }
-        ],}
- ,merge=True,template={
-    "info": {
-        "title": "Travel Planner Api",
-        "description": "RASTA Travel Planner API",
-        "version": "1.0.0"
-    },
-})"""
-"""swagger = Swagger(app,config = {"specs_route": "/api-docs/","static_folder":"/usr/local/lib/python3.12/site-packages/flasgger/ui3","static_url_path": "/rasta/routeplanner"}
- ,merge=True,template={
-    "info": {
-        "title": "Travel Planner Api",
-        "description": "RASTA Travel Planner API",
-        "version": "1.0.0"
-    },
-    
-})"""
+
 CORS(app)
-
-# Sample data storage (in-memory)
-def update_distances_file(file_url):
-    df=pd.read_csv(file_url,index_col=0,header=0)
-    df.insert(0,'0',[0.0]*624,True)
-    df.loc[0,:] = 0.0
-    df = df.sort_index().reset_index(drop=True)
-    df.to_csv("car_durations_updated.csv")
-    print(df.columns)
-    print(df.index)
-    print(df)
-#
-
-def update_visiting_times_file(visit_times_file_url):
-    response = requests.get(visit_times_file_url)
-    open("visiting_times_updated.json", "wb").write(response.content)
 
 @app.route('/apispec_1.json')
 def redirect_apidocs():
   print("REDIRECT")
-  return redirect('/rasta/routeplanner/rasta/routeplanner/apispec_1.json', code=302)
+  return redirect('', code=302)
 
 # RESTful POST endpoint
 #@swag_from('./routeplanner.yaml')

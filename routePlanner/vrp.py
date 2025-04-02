@@ -26,9 +26,9 @@ mandatory_pois_multiplier = 10
 cutoff_threshold = 0.5
 preferred_pois_threshold = 0.7
 urls={
-    "driving-car":"",
-    "cycling-regular":"",
-    "foot-walking":""
+    "driving-car":"OPENROUTESERVICE_CAR-DRIVING_SERVER_ADDRESS",
+    "cycling-regular":"OPENROUTESERVICE_CYCLING-REGULAR_SERVER_ADDRESS",
+    "foot-walking":"OPENROUTESERVICE_FOOT-WALKING_SERVER_ADDRESS"
 }
 class ItineraryPlanner:
     #exclude POIS by setting a too long visiting time
