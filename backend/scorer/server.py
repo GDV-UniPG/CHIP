@@ -3,6 +3,7 @@ from concurrent import futures
 import pandas as pd
 import numpy as np
 from gensim.models import KeyedVectors
+import gensim.downloader as api
 from sklearn.metrics.pairwise import cosine_similarity
 import poi_toi_pb2
 import poi_toi_pb2_grpc
@@ -15,7 +16,13 @@ import fastparquet
 import nltk
 nltk.download('punkt_tab')
 
-w2v_model = KeyedVectors.load("word2vec_google_news.model", mmap='r')
+#scarica il modello Word2vec (solo al primo avvio)
+w2v_model = api.load('word2vec-google-news-300')
+#salva il modello Word2vec (solo al primo avvio)
+w2v_model.save("word2vec_google_news.model")
+
+#carica il modello word2vec salvato in locale in seguito al primo avvio.
+#w2v_model = KeyedVectors.load("word2vec_google_news.model", mmap='r')
 
 class PoiToiScorerServicer(poi_toi_pb2_grpc.PoiToiScorerServicer):
     def calculate_embedding(self, text):
