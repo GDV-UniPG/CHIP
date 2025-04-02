@@ -29,7 +29,7 @@ router.post('/images-upload', upload.single('image'), async (req, res) => {
     return res.status(400).send({ error: 'ID POI e immagine sono richiesti.' });
   }
 
-  const imageLink = `https://mozart.diei.unipg.it/rasta/images/images/${poiId}.jpg`;
+  const imageLink =  process.env.IMAGES_LINK+ poiId+`.jpg`;
 
   try {
     const result = await pool.query(
